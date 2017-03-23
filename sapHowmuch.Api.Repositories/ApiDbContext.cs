@@ -14,6 +14,5 @@ namespace sapHowmuch.Api.Repositories
 		}
 
 		public virtual IDbSet<EventStream> EventStreams { get; set; }
-		//public virtual IDbSet<>
 	}
 }

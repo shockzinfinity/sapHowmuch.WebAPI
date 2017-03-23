@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using sapHowmuch.Api.Common;
 using System.Reflection;
 using System.Web;
 
@@ -12,7 +13,10 @@ namespace sapHowmuch.Api.Web
 		{
 			var builder = new ContainerBuilder();
 
-			// TODO: components loading
+			ComponentLoader.LoadContainer(builder, ".\\bin", "todocqrs.Infrastructure.dll");
+			ComponentLoader.LoadContainer(builder, ".\\bin", "todocqrs.EventProcessors.dll");
+			ComponentLoader.LoadContainer(builder, ".\\bin", "todocqrs.Repositories.dll");
+			ComponentLoader.LoadContainer(builder, ".\\bin", "todocqrs.Services.dll");
 
 			builder.RegisterModule<AutofacWebTypesModule>();
 

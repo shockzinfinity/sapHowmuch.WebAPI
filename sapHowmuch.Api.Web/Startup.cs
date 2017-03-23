@@ -21,7 +21,11 @@ namespace sapHowmuch.Api.Web
 			// TODO: Mapper initialize
 			Mapper.Initialize(cfg =>
 			{
-				//cfg.AddProfiles()
+				cfg.AddProfiles(
+					"sapHowmuch.Api.Infrastructure",
+					"sapHowmuch.Api.EventProcessors",
+					"sapHowmuch.Api.Repositories",
+					"sapHowmuch.Api.Services");
 			});
 
 			MvcConfig.Configure(appBuilder, container);

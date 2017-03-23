@@ -30,7 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,7 +48,23 @@
     <Compile Include="..\sharedAssemblyInfo.cs">
       <Link>Properties\sharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DependencyResolver.cs" />
+    <Compile Include="EventStreamService.cs" />
+    <Compile Include="IEventStreamService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\sapHowmuch.Api.Common\sapHowmuch.Api.Common.csproj">
+      <Project>{5ED7470F-CBCE-4664-A286-BAB127C2D2DE}</Project>
+      <Name>sapHowmuch.Api.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sapHowmuch.Api.Infrastructure\sapHowmuch.Api.Infrastructure.csproj">
+      <Project>{1346991B-F1DC-408A-9F90-38B2D85D5147}</Project>
+      <Name>sapHowmuch.Api.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,19 +1,29 @@
-﻿using sapHowmuch.Api.Common.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using Autofac;
+using sapHowmuch.Api.Common.Interfaces;
+using sapHowmuch.Api.Infrastructure.EventHandlers;
+using sapHowmuch.Api.Infrastructure.RequestHandlers;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sapHowmuch.Api.Infrastructure
 {
 	[Export(typeof(IComponent))]
 	public class DependencyResolver : IComponent
 	{
+		#region IComponent implementation
+
 		public void Setup(IRegisterComponent registerComponent)
 		{
-			// TODO: DI settings by Autofac
+			registerComponent.Builder.RegisterType<EventStreamCreatedEventHandler>()
+				.As<IEventHandler>()
+				.PropertiesAutowired()
+				.InstancePerLifetimeScope();
+
+			registerComponent.Builder.RegisterType<EventStreamCreateRequestHandler>()
+				.As<IRequestHandler>()
+				.PropertiesAutowired()
+				.InstancePerLifetimeScope();
 		}
+
+		#endregion IComponent implementation
 	}
 }

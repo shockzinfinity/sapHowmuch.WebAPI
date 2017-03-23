@@ -57,7 +57,7 @@
     <Compile Include="..\sharedAssemblyInfo.cs">
       <Link>Properties\sharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CommonLoader.cs" />
+    <Compile Include="ComponentLoader.cs" />
     <Compile Include="Extensions\ConvertHelper.cs" />
     <Compile Include="Extensions\DbContextCommandExtensions.cs" />
     <Compile Include="Extensions\DbContextQueryExtensions.cs" />

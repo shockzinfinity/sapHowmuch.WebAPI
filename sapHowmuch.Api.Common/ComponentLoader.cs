@@ -13,7 +13,7 @@ namespace sapHowmuch.Api.Common
 	/// <summary>
 	/// This represents the <c>ComponentLoader</c> class using by MEF.
 	/// </summary>
-	public static class CommonLoader
+	public static class ComponentLoader
 	{
 		/// <summary>
 		/// Load components from path.

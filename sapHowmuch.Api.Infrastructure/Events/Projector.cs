@@ -7,7 +7,7 @@ namespace sapHowmuch.Api.Infrastructure.Events
 	/// </summary>
 	public class Projector
 	{
-		private static readonly Guid SystemId = Guid.Parse("78071C22-5890-4A4B-A407-F45661CFBE86");
+		private static readonly Guid SystemId = Guid.Parse("F0886D27-C1BD-47E7-9976-6CDB90C14E17");
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Projector" /> class.
