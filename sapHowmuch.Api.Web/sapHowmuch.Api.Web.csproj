@@ -158,6 +158,7 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\229 server %289091%29.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -174,6 +175,22 @@
     <ProjectReference Include="..\sapHowmuch.Api.Common\sapHowmuch.Api.Common.csproj">
       <Project>{5ED7470F-CBCE-4664-A286-BAB127C2D2DE}</Project>
       <Name>sapHowmuch.Api.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sapHowmuch.Api.EventProcessors\sapHowmuch.Api.EventProcessors.csproj">
+      <Project>{6bd29224-9fff-4bcb-bdd6-32cb4b8f7a7a}</Project>
+      <Name>sapHowmuch.Api.EventProcessors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sapHowmuch.Api.Infrastructure\sapHowmuch.Api.Infrastructure.csproj">
+      <Project>{1346991b-f1dc-408a-9f90-38b2d85d5147}</Project>
+      <Name>sapHowmuch.Api.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sapHowmuch.Api.Repositories\sapHowmuch.Api.Repositories.csproj">
+      <Project>{c18f6051-94cf-47a6-8eef-1ebcb388773f}</Project>
+      <Name>sapHowmuch.Api.Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sapHowmuch.Api.Services\sapHowmuch.Api.Services.csproj">
+      <Project>{1af5cfd5-b17c-4d51-8047-296f3e5d94af}</Project>
+      <Name>sapHowmuch.Api.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
