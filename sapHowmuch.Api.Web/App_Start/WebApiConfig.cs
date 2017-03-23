@@ -1,24 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Autofac;
+using Autofac.Integration.WebApi;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using Owin;
 using System.Web.Http;
 
 namespace sapHowmuch.Api.Web
 {
-    public static class WebApiConfig
-    {
-        public static void Register(HttpConfiguration config)
-        {
-            // Web API 구성 및 서비스
+	public static class WebApiConfig
+	{
+		public static void Configure(IAppBuilder appBuilder, IContainer container)
+		{
+			// TODO: autofac dependency resolver
+			var config = new HttpConfiguration()
+			{
+				DependencyResolver = new AutofacWebApiDependencyResolver(container)
+			};
 
-            // Web API 경로
-            config.MapHttpAttributeRoutes();
+			// Routes
+			config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
-        }
-    }
+			// Formatters
+			config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+			config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+			config.Formatters.JsonFormatter.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
+
+			appBuilder.UseWebApi(config);
+		}
+	}
 }
