@@ -4,7 +4,7 @@ using System.Web.Http.Description;
 
 namespace sapHowmuch.Api.Web.Controllers
 {
-	[ApiExplorerSettings(IgnoreApi = true)]
+	[ApiExplorerSettings(IgnoreApi = true)] // hide specific controller in swagger controller list
 	public class ErrorController : ApiController
 	{
 		[HttpGet, HttpPost, HttpPut, HttpDelete, HttpHead, HttpOptions]
