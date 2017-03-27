@@ -233,6 +233,8 @@
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BaseMvcController.cs" />
+    <Compile Include="Controllers\CoaController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ProtectedController.cs" />
     <Compile Include="Infrastructure\ApplicationDbContext.cs" />
@@ -241,6 +243,7 @@
     <Compile Include="Infrastructure\ApplicationType.cs" />
     <Compile Include="Infrastructure\ApplicationUser.cs" />
     <Compile Include="Infrastructure\ApplicationUserManager.cs" />
+    <Compile Include="Infrastructure\ClaimsauthorizationAttribute.cs" />
     <Compile Include="Infrastructure\Client.cs" />
     <Compile Include="Infrastructure\LoggingFilterAttribute.cs" />
     <Compile Include="Infrastructure\NLogger.cs" />
