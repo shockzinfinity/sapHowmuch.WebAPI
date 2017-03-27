@@ -2,6 +2,7 @@
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using sapHowmuch.Api.Common;
+using sapHowmuch.Api.Web.Controllers;
 using System.Reflection;
 using System.Web;
 
@@ -26,6 +27,7 @@ namespace sapHowmuch.Api.Web
 				{
 					var httpContext = e.Context.Resolve<HttpContextBase>();
 					// TODO: controller context injection
+					((BaseMvcController)e.Instance).SetHttpContext(httpContext);
 				})
 				.PropertiesAutowired()
 				.InstancePerLifetimeScope();
