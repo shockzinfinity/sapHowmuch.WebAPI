@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using Microsoft.Owin.Security.DataHandler.Encoder;
+using sapHowmuch.Api.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace sapHowmuch.Api.Web.Infrastructure
@@ -21,6 +24,11 @@ namespace sapHowmuch.Api.Web.Infrastructure
 			return new RefreshTokenManager(context.Get<ApplicationDbContext>());
 		}
 
+		public IEnumerable<Client> GetClients()
+		{
+			return _context.Clients.ToList();
+		}
+
 		public IEnumerable<Client> GetAllowedClients()
 		{
 			return _context.Clients.Where(x => x.Active);
@@ -31,6 +39,51 @@ namespace sapHowmuch.Api.Web.Infrastructure
 			var client = _context.Clients.Find(clientId);
 
 			return client;
+		}
+
+		public async Task<Client> AddClientAsync(ClientBindingModel clientModel)
+		{
+			//var clientId = Guid.NewGuid().ToString("n");
+			var clientId = Guid.NewGuid().ToString();
+			var key = new byte[32];
+			RNGCryptoServiceProvider.Create().GetBytes(key);
+			var base64Secret = TextEncodings.Base64Url.Encode(key);
+
+			var client = new Client
+			{
+				Id = Guid.NewGuid().ToString(),
+				Active = true,
+				AllowedOrigin = (string.IsNullOrWhiteSpace(clientModel.AllowedOrigin)) ? "*" : clientModel.AllowedOrigin,
+				ApplicationType = clientModel.ApplicationType,
+				Name = clientModel.Name,
+				RefreshTokenLifeTime = clientModel.RefreshTokenLifeTime,
+				Secret = base64Secret
+			};
+
+			this._context.Clients.Add(client);
+
+			var result = await this._context.SaveChangesAsync() > 0;
+
+			if (result)
+			{
+				return client;
+			}
+
+			return null;
+		}
+
+		public async Task<bool> RemoveClient(string id)
+		{
+			var client = await this._context.Clients.FindAsync(id);
+
+			if (client != null)
+			{
+				this._context.Clients.Remove(client);
+
+				return await this._context.SaveChangesAsync() > 0;
+			}
+
+			return false;
 		}
 
 		public async Task<bool> AddRefreshToken(RefreshToken token)

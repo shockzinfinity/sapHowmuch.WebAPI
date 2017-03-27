@@ -1,4 +1,4 @@
-using Microsoft.AspNet.Identity;
+Ôªøusing Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 //using sapHowmuch.Api.Common.Extensions;
 using sapHowmuch.Api.Web.Infrastructure;
@@ -44,17 +44,17 @@ namespace sapHowmuch.Api.Web.Migrations
 
 			if (!roleManager.Roles.Any(x => x.Name == "SuperAdmin"))
 			{
-				roleManager.Create(new ApplicationRole("SuperAdmin") { Description = "√÷ªÛ¿ß ∞¸∏Æ¿⁄" });
+				roleManager.Create(new ApplicationRole("SuperAdmin") { Description = "ÏµúÍ≥† Í¥ÄÎ¶¨Ïûê" });
 			}
 
 			if (!roleManager.Roles.Any(x => x.Name == "Admin"))
 			{
-				roleManager.Create(new ApplicationRole("Admin") { Description = "∞¸∏Æ¿⁄" });
+				roleManager.Create(new ApplicationRole("Admin") { Description = "Í¥ÄÎ¶¨Ïûê" });
 			}
 
 			if (!roleManager.Roles.Any(x => x.Name == "User"))
 			{
-				roleManager.Create(new ApplicationRole("User") { Description = "¿œπ› ªÁøÎ¿⁄" });
+				roleManager.Create(new ApplicationRole("User") { Description = "ÏÇ¨Ïö©Ïûê" });
 			}
 
 			var toAddUser = userManager.FindByName("shockz");
@@ -62,7 +62,7 @@ namespace sapHowmuch.Api.Web.Migrations
 			{
 				toAddUser = new ApplicationUser()
 				{
-					Id = Guid.Parse("7F6C21AC-0201-44D1-8F9A-A92AF2B58AE8").ToString("n"),
+					Id = Guid.Parse("7F6C21AC-0201-44D1-8F9A-A92AF2B58AE8").ToString(),
 					UserName = "shockz",
 					Email = "shockz@iquest.co.kr",
 					EmailConfirmed = true,
@@ -97,7 +97,7 @@ namespace sapHowmuch.Api.Web.Migrations
 			{
 				new Client
 				{
-					Id = Guid.Parse("F1179B6B-15A8-4250-9ED9-4C2D5EE0376B").ToString("n"),
+					Id = Guid.Parse("F1179B6B-15A8-4250-9ED9-4C2D5EE0376B").ToString(),
 					Secret = GetHash("iqst63214"),
 					Name = "JavaScript Front-end Application",
 					ApplicationType = ApplicationType.JavaScript,
@@ -107,7 +107,7 @@ namespace sapHowmuch.Api.Web.Migrations
 				},
 				new Client
 				{
-					Id = Guid.Parse("3CFBC80C-9104-44E8-9E67-43663F25AC47").ToString("n"),
+					Id = Guid.Parse("3CFBC80C-9104-44E8-9E67-43663F25AC47").ToString(),
 					Secret = GetHash("iqst63214"),
 					Name = "Native console or winform Application",
 					ApplicationType = ApplicationType.NativeConfidential,
