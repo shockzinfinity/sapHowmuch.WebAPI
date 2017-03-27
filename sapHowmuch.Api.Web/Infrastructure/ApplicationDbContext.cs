@@ -14,7 +14,7 @@ namespace sapHowmuch.Api.Web.Infrastructure
 			return new ApplicationDbContext();
 		}
 
-		public virtual IDbSet<Client> Clients { get; set; }
-		public virtual IDbSet<RefreshToken> RefreshTokens { get; set; }
+		public virtual DbSet<Client> Clients { get; set; }
+		public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 	}
 }

@@ -70,7 +70,7 @@ namespace sapHowmuch.Api.Web.Infrastructure
 
 		public async Task<RefreshToken> FindRefreshToken(string refreshTokenId)
 		{
-			var refreshToken = _context.RefreshTokens.Find(refreshTokenId);
+			var refreshToken = await _context.RefreshTokens.FindAsync(refreshTokenId);
 
 			return refreshToken;
 		}
