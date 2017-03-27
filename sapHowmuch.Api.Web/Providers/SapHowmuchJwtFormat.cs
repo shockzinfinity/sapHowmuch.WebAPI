@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNet.Identity.Owin;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using sapHowmuch.Api.Web.Infrastructure;
 using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
+using System.IdentityModel.Tokens;
 using System.Web;
 
 namespace sapHowmuch.Api.Web.Providers
@@ -28,12 +24,12 @@ namespace sapHowmuch.Api.Web.Providers
 				throw new ArgumentNullException(nameof(data));
 			}
 
-			string audienceId = data.Properties.Dictionary["as:client_id"];
+			string audienceId = data.Properties.Dictionary[Startup.ClientPropertyName];
 			var client = HttpContext.Current.GetOwinContext().Get<RefreshTokenManager>().FindClient(audienceId);
 			string symmetricKeyBase64 = client.Secret;
 
-			var keyByteArray = new SymmetricSecurityKey(TextEncodings.Base64Url.Decode(symmetricKeyBase64));
-			var signingCredentials = new SigningCredentials(keyByteArray, SecurityAlgorithms.HmacSha256);
+			var keyByteArray = new InMemorySymmetricSecurityKey(TextEncodings.Base64Url.Decode(symmetricKeyBase64));
+			var signingCredentials = new SigningCredentials(keyByteArray, SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest);
 
 			var issued = data.Properties.IssuedUtc;
 			var expires = data.Properties.ExpiresUtc;
@@ -47,40 +43,47 @@ namespace sapHowmuch.Api.Web.Providers
 
 		public AuthenticationTicket Unprotect(string protectedText)
 		{
-			List<SymmetricSecurityKey> keys = new List<SymmetricSecurityKey>();
+			throw new NotImplementedException();
 
-			foreach (var client in Startup.AcceptedClients)
-			{
-				var base64Key = client.Secret;
-				keys.Add(new SymmetricSecurityKey(TextEncodings.Base64Url.Decode(base64Key)));
-			}
+			#region 임시주석처리 2017-03-27
 
-			var handler = new JwtSecurityTokenHandler();
-			TokenValidationParameters validationParams = new TokenValidationParameters
-			{
-				// TODO: client 에 따른 암호 키가 문제가 된다면 이 부분을 수정해야한다.
-				ValidIssuer = _issuer,
-				ValidAudiences = Startup.AcceptedClients.Select(c => c.Id),
-				IssuerSigningKeys = keys,
-				ValidateLifetime = true,
-				ClockSkew = TimeSpan.Zero
-			};
+			//// TODO: OAuthBearerAuthentication 을 사용할 경우에 동작? - 체크 필요
+			//List<SymmetricSecurityKey> keys = new List<SymmetricSecurityKey>();
 
-			SecurityToken token = null;
+			//foreach (var client in Startup.AcceptedClients)
+			//{
+			//	var base64Key = client.Secret;
+			//	keys.Add(new SymmetricSecurityKey(TextEncodings.Base64Url.Decode(base64Key)));
+			//}
 
-			try
-			{
-				var result = handler.ValidateToken(protectedText, validationParams, out token);
-				ClaimsIdentity claimsIdentity = new ClaimsIdentity(result.Claims, "JWT");
+			//var handler = new JwtSecurityTokenHandler();
+			//TokenValidationParameters validationParams = new TokenValidationParameters
+			//{
+			//	// TODO: client 에 따른 암호 키가 문제가 된다면 이 부분을 수정해야한다.
+			//	ValidIssuer = _issuer,
+			//	ValidAudiences = Startup.AcceptedClients.Select(c => c.Id),
+			//	IssuerSigningKeys = keys,
+			//	ValidateLifetime = true,
+			//	ClockSkew = TimeSpan.Zero
+			//};
 
-				var ticket = new AuthenticationTicket(claimsIdentity, null); // TODO: properties 업데이트?
+			//SecurityToken token = null;
 
-				return ticket;
-			}
-			catch
-			{
-				throw;
-			}
+			//try
+			//{
+			//	var result = handler.ValidateToken(protectedText, validationParams, out token);
+			//	ClaimsIdentity claimsIdentity = new ClaimsIdentity(result.Claims, "JWT");
+
+			//	var ticket = new AuthenticationTicket(claimsIdentity, null); // TODO: properties 업데이트?
+
+			//	return ticket;
+			//}
+			//catch
+			//{
+			//	throw;
+			//}
+
+			#endregion 임시주석처리 2017-03-27
 		}
 	}
 }
