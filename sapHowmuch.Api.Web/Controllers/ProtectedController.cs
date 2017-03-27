@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace sapHowmuch.Api.Web.Controllers
 {
+	/// <summary>
+	/// Test 를 위한 Protected Controller
+	/// </summary>
 	[Authorize]
 	[RoutePrefix("api/test")]
-	public class ProtectedController :BaseApiController
+	public class ProtectedController : BaseApiController
 	{
+		/// <summary>
+		/// GET
+		/// </summary>
+		/// <returns></returns>
 		[Route("")]
 		public IHttpActionResult Get()
 		{

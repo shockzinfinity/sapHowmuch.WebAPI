@@ -23,7 +23,8 @@ namespace sapHowmuch.Api.Web.Providers
 				return;
 			}
 
-			var refreshTokenId = Guid.NewGuid().ToString("n");
+			//var refreshTokenId = Guid.NewGuid().ToString("n");
+			var refreshTokenId = Guid.NewGuid().ToString();
 			var manager = context.OwinContext.Get<RefreshTokenManager>();
 			var lifeTime = context.OwinContext.Get<string>(Startup.ClientRefreshTokenLifeTimePropertyName);
 

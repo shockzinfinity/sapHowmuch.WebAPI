@@ -6,6 +6,9 @@ using System.Web.Http.Tracing;
 
 namespace sapHowmuch.Api.Web.Infrastructure
 {
+	/// <summary>
+	/// This represents LoggingFilter attribute.
+	/// </summary>
 	public class LoggingFilterAttribute : ActionFilterAttribute
 	{
 		public override void OnActionExecuting(HttpActionContext actionContext)
