@@ -1,4 +1,10 @@
-﻿using sapHowmuch.Api.Repositories;
+﻿using sapHowmuch.Api.Infrastructure.Models;
+using sapHowmuch.Api.Infrastructure.Models.Requests;
+using sapHowmuch.Api.Infrastructure.Models.Responses;
+using sapHowmuch.Api.Repositories;
+using sapHowmuch.Api.Services;
+using sapHowmuch.Api.Web.Infrastructure;
+using sapHowmuch.Api.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +17,18 @@ namespace sapHowmuch.Api.Web.Controllers
 	/// <summary>
 	/// 사원 컨트롤러
 	/// </summary>
+	[LoggingFilter]
 	[RoutePrefix("api/employee")]
 	public class EmployeeController : BaseApiController
 	{
 		private readonly ISapQueryRepository _repository;
+		private readonly IEventStreamService _service;
 
 		/// <summary>
 		/// Initialises a new instance of the <see cref="EmployeeController" /> class.
 		/// </summary>
 		/// <param name="repository"><c>SapQueryRepository</c> instance.</param>
-		public EmployeeController(ISapQueryRepository repository)
+		public EmployeeController(ISapQueryRepository repository, IEventStreamService service)
 		{
 			if (repository == null)
 			{
@@ -28,6 +36,13 @@ namespace sapHowmuch.Api.Web.Controllers
 			}
 
 			this._repository = repository;
+
+			if (service == null)
+			{
+				throw new ArgumentNullException(nameof(service));
+			}
+
+			this._service = service;
 		}
 
 		/// <summary>
@@ -41,7 +56,7 @@ namespace sapHowmuch.Api.Web.Controllers
 
 			if (list.Count() > 0)
 			{
-				return Ok(_repository.GetEmployees().Result);
+				return Ok(list);
 			}
 
 			return NotFound();
@@ -81,6 +96,46 @@ namespace sapHowmuch.Api.Web.Controllers
 			}
 
 			return NotFound();
+		}
+
+		/// <summary>
+		/// Create employee info 
+		/// </summary>
+		/// <param name="request">The <see cref="EmployeeInfoCreateRequest" /> instance.</param>
+		/// <returns>Returns the <see cref="EmployeeInfoCreateResponse" /> instance. </returns>
+		[HttpPost]
+		[Route("add-employee")]
+		public async Task<EmployeeInfoCreateResponse> AddEmployee(EmployeeInfoCreateRequest request)
+		{
+			//if (!ModelState.IsValid)
+			//{
+			//	return BadRequest(ModelState);
+			//}
+
+			//var empSap = new SapEmployeeInfoEntity()
+			//{
+			//	ExtEmpno = toAddEmployee.ExtEmpno,
+			//	FirstName = toAddEmployee.FirstName,
+			//	LastName = toAddEmployee.LastName,
+			//	StartDate = toAddEmployee.StartDate,
+			//	Status = toAddEmployee.Status,
+			//	TermDate = toAddEmployee.TermDate,
+			//	Active = toAddEmployee.Active,
+			//	Dept = toAddEmployee.Dept,
+			//	Position = toAddEmployee.Position,
+			//	HomeCountr = toAddEmployee.HomeCountr,
+			//	BrthCountr = toAddEmployee.BrthCountr,
+			//	Sex = toAddEmployee.Sex,
+			//	BirthDate = toAddEmployee.BirthDate,
+			//	HomeTel = toAddEmployee.HomeTel,
+			//	Mobile = toAddEmployee.Mobile,
+			//	Email = toAddEmployee.Email,
+			//	HomeStreet = toAddEmployee.HomeStreet,
+			//	HomeZip = toAddEmployee.HomeZip,
+			//	MartStatus = toAddEmployee.MartStatus
+			//};
+
+			throw new NotImplementedException();
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using sapHowmuch.Api.Web.Infrastructure;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace sapHowmuch.Api.Web.Models
@@ -88,5 +89,84 @@ namespace sapHowmuch.Api.Web.Models
 		public int RefreshTokenLifeTime { get; set; }
 		[MaxLength(200)]
 		public string AllowedOrigin { get; set; }
+	}
+
+	public class CreateEmployeeBindingModel
+	{
+		[Required]
+		[Display(Name = "External Employee Number")]
+		public string ExtEmpno { get; set; }
+
+		[Required]
+		[Display(Name = "First Name")]
+		public string FirstName { get; set; }
+
+		[Required]
+		[Display(Name = "Last Name")]
+		public string LastName { get; set; }
+
+		[Required]
+		[Display(Name = "Start Date")]
+		public DateTime? StartDate { get; set; }
+
+		[Required]
+		[Display(Name = "Status")]
+		public int? Status { get; set; }
+
+		[Required]
+		[Display(Name = "Term Date")]
+		public DateTime? TermDate { get; set; }
+
+		[Required]
+		[Display(Name = "Active")]
+		public string Active { get; set; }
+
+		[Required]
+		[Display(Name = "Department")]
+		public int? Dept { get; set; }
+
+		[Required]
+		[Display(Name = "Position")]
+		public int Position { get; set; }
+
+		[Required]
+		[Display(Name = "Home Country")]
+		public string HomeCountr { get; set; }
+
+		[Required]
+		[Display(Name = "Birth Place")]
+		public string BrthCountr { get; set; }
+
+		[Required]
+		[Display(Name = "Sex")]
+		public string Sex { get; set; }
+
+		[Required]
+		[Display(Name = "Date of Birth")]
+		public DateTime? BirthDate { get; set; }
+
+		[Required]
+		[Display(Name = "Home Phone")]
+		public string HomeTel { get; set; }
+
+		[Required]
+		[Display(Name = "Mobile Phone")]
+		public string Mobile { get; set; }
+
+		[Required]
+		[Display(Name = "eMail")]
+		public string Email { get; set; }
+
+		[Required]
+		[Display(Name = "Home Address")]
+		public string HomeStreet { get; set; }
+
+		[Required]
+		[Display(Name = "Home Zip Code")]
+		public string HomeZip { get; set; }
+
+		[Required]
+		[Display(Name = "Marriage Status")]
+		public string MartStatus { get; set; }
 	}
 }

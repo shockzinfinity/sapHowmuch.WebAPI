@@ -100,6 +100,20 @@ namespace sapHowmuch.Api.Services
 			return await Task.FromResult(response);
 		}
 
+		public async Task<EmployeeInfoCreateResponse> CreateEmployeeInfoAsync(EmployeeInfoCreateRequest request)
+		{
+			//var handler = this._handlers.SingleOrDefault(p => p.CanHandle(request));
+
+			//if (handler == null)
+			//{
+			//	return await Task.FromResult(default(EmployeeInfoCreateResponse));
+			//}
+
+			//var ev = handler.CreateEvent(request);
+
+			throw new NotImplementedException();
+		}
+
 		private bool _disposed;
 
 		/// <summary>

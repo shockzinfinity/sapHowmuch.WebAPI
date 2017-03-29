@@ -11,20 +11,45 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Threading;
 
 [assembly: OwinStartup(typeof(sapHowmuch.Api.Web.Startup))]
 
 namespace sapHowmuch.Api.Web
 {
+	/// <summary>
+	/// This represents the entity for OWIN pipeline startup.
+	/// </summary>
 	public class Startup
 	{
+		/// <summary>
+		/// Gets or sets a value indicating whether the mapper definition has been initialised or not.
+		/// </summary>
+
+		/// <summary>
+		/// Gets OWIN property name of allowedOrigin
+		/// </summary>
 		public const string ClientAllowedOriginPropertyName = "as:clientAllowedOrigin";
+
+		/// <summary>
+		/// Gets OWIN property name of refresh token life time
+		/// </summary>
 		public const string ClientRefreshTokenLifeTimePropertyName = "as:clientRefreshTokenLifeTime";
+
+		/// <summary>
+		/// Gets OWIN property name of audience (client id)
+		/// </summary>
 		public const string ClientPropertyName = "as:client_id";
 
+		/// <summary>
+		/// Gets allowed origin against this web api
+		/// </summary>
 		public static IEnumerable<Client> AcceptedClients;
 
+		/// <summary>
+		/// Configures the OWIN pipeline.
+		/// </summary>
+		/// <param name="appBuilder">The <see cref="IAppBuilder" /> instance.</param>
+		/// <exception cref="ArgumentNullException">Throws when <c>appBuilder</c> is null.</exception>
 		public void Configuration(IAppBuilder appBuilder)
 		{
 			if (appBuilder == null)

@@ -16,5 +16,12 @@ namespace sapHowmuch.Api.Services
 		/// <param name="request">The <see cref="EventStreamCreateRequest" /> instance.</param>
 		/// <returns>Returns the <see cref="EventStreamCreateResponse" /> instance.</returns>
 		Task<EventStreamCreateResponse> CreateEventStreamAsync(EventStreamCreateRequest request);
+
+		/// <summary>
+		/// Creates employee info asynchronously.
+		/// </summary>
+		/// <param name="request">The <see cref="EmployeeInfoCreateRequest" /> instance.</param>
+		/// <returns>Returns the <see cref="EmployeeInfoCreateResponse" /> instance.</returns>
+		Task<EmployeeInfoCreateResponse> CreateEmployeeInfoAsync(EmployeeInfoCreateRequest request);
 	}
 }
