@@ -34,6 +34,10 @@
       <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -46,6 +50,8 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,18 +66,42 @@
     <Compile Include="BaseRepository.cs" />
     <Compile Include="DbContextFactory.cs" />
     <Compile Include="DependencyResolver.cs" />
+    <Compile Include="ISapQueryRepository.cs" />
     <Compile Include="Migrations\201703230929325_initial.cs" />
     <Compile Include="Migrations\201703230929325_initial.Designer.cs">
       <DependentUpon>201703230929325_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="SapEntities\POCOs\OCRD.cs" />
+    <Compile Include="SapEntities\POCOs\OCRY.cs" />
+    <Compile Include="SapEntities\POCOs\OHPS.cs" />
+    <Compile Include="SapEntities\POCOs\OHST.cs" />
+    <Compile Include="SapEntities\POCOs\OITM.cs" />
+    <Compile Include="SapEntities\POCOs\OPRC.cs" />
+    <Compile Include="SapEntities\POCOs\OUDP.cs" />
+    <Compile Include="SapEntities\POCOs\OHEM.cs" />
+    <Compile Include="SapEntities\POCOs\OACT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ApiDbContext.cs" />
+    <Compile Include="SapDbContext.cs" />
+    <Compile Include="SapEntities\Profiles\OACTToSapCoaEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\OCRDToSapBusinessPartnerEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\OCRYToSapCountryEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\OHEMToSapEmployeeEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\OHPSToSapEmployeePositionEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\OHSTToSapEmployeeStatusEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\OITMToSapItemEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\OPRCToSapBudgetCenterEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\OPRCToSapCostCenterEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\OUDPToSapDepartmentEntityMapperProfile.cs" />
+    <Compile Include="SapQueryRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="UnitOfWorkManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +118,9 @@
     <EmbeddedResource Include="Migrations\201703230929325_initial.resx">
       <DependentUpon>201703230929325_initial.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -14,10 +14,10 @@ namespace sapHowmuch.Api.Web
 		{
 			var builder = new ContainerBuilder();
 
-			ComponentLoader.LoadContainer(builder, ".\\bin", "todocqrs.Infrastructure.dll");
-			ComponentLoader.LoadContainer(builder, ".\\bin", "todocqrs.EventProcessors.dll");
-			ComponentLoader.LoadContainer(builder, ".\\bin", "todocqrs.Repositories.dll");
-			ComponentLoader.LoadContainer(builder, ".\\bin", "todocqrs.Services.dll");
+			ComponentLoader.LoadContainer(builder, ".\\bin", "sapHowmuch.Api.Infrastructure.dll");
+			ComponentLoader.LoadContainer(builder, ".\\bin", "sapHowmuch.Api.EventProcessors.dll");
+			ComponentLoader.LoadContainer(builder, ".\\bin", "sapHowmuch.Api.Repositories.dll");
+			ComponentLoader.LoadContainer(builder, ".\\bin", "sapHowmuch.Api.Services.dll");
 
 			builder.RegisterModule<AutofacWebTypesModule>();
 
@@ -26,7 +26,6 @@ namespace sapHowmuch.Api.Web
 				.OnActivating(e =>
 				{
 					var httpContext = e.Context.Resolve<HttpContextBase>();
-					// TODO: controller context injection
 					((BaseMvcController)e.Instance).SetHttpContext(httpContext);
 				})
 				.PropertiesAutowired()
