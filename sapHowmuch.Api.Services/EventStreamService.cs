@@ -102,16 +102,64 @@ namespace sapHowmuch.Api.Services
 
 		public async Task<EmployeeInfoCreateResponse> CreateEmployeeInfoAsync(EmployeeInfoCreateRequest request)
 		{
-			//var handler = this._handlers.SingleOrDefault(p => p.CanHandle(request));
+			await this._builder.BuildAsync(request);
 
-			//if (handler == null)
-			//{
-			//	return await Task.FromResult(default(EmployeeInfoCreateResponse));
-			//}
+			var handler = this._handlers.SingleOrDefault(p => p.CanHandle(request));
 
-			//var ev = handler.CreateEvent(request);
+			if (handler == null)
+			{
+				return await Task.FromResult(default(EmployeeInfoCreateResponse));
+			}
 
-			throw new NotImplementedException();
+			var ev = handler.CreateEvent(request) as EmployeeInfoCreatedEvent;
+			PopulateBaseProperties(ev);
+
+			EmployeeInfoCreateResponse response;
+
+			try
+			{
+				await this._processor.ProcessEventsAsync(new[] { ev });
+
+				// TODO: Mapper 고려
+				response = new EmployeeInfoCreateResponse()
+				{
+					Data = new EmployeeInfoCreateResponseData()
+					{
+						ExtEmpno = ev.ExtEmpno,
+						FirstName = ev.FirstName,
+						LastName = ev.LastName,
+						Sex = ev.Sex,
+						Active = ev.Active,
+						Dept = ev.Dept,
+						BirthDate = ev.BirthDate,
+						BrthCountr = ev.BrthCountr,
+						Email = ev.Email,
+						HomeCountr = ev.HomeCountr,
+						HomeStreet = ev.HomeStreet,
+						HomeTel = ev.HomeTel,
+						HomeZip = ev.HomeZip,
+						MartStatus = ev.MartStatus,
+						Mobile = ev.Mobile,
+						Position = ev.Position,
+						StartDate = ev.StartDate,
+						Status = ev.Status,
+						TermDate = ev.TermDate
+					}
+				};
+			}
+			catch (Exception ex)
+			{
+				response = new EmployeeInfoCreateResponse()
+				{
+					Error = new ResponseError()
+					{
+						Message = ex.Message,
+						StackTrace = ex.StackTrace
+					}
+				};
+			}
+
+			return await Task.FromResult(response);
 		}
 
 		private bool _disposed;

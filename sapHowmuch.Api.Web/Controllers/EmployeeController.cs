@@ -28,6 +28,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		/// Initialises a new instance of the <see cref="EmployeeController" /> class.
 		/// </summary>
 		/// <param name="repository"><c>SapQueryRepository</c> instance.</param>
+		/// <param name="service"><c>EventStreamService</c> instance.</param>
 		public EmployeeController(ISapQueryRepository repository, IEventStreamService service)
 		{
 			if (repository == null)
@@ -107,35 +108,24 @@ namespace sapHowmuch.Api.Web.Controllers
 		[Route("add-employee")]
 		public async Task<EmployeeInfoCreateResponse> AddEmployee(EmployeeInfoCreateRequest request)
 		{
-			//if (!ModelState.IsValid)
-			//{
-			//	return BadRequest(ModelState);
-			//}
+			var eventStreamRequest = new EventStreamCreateRequest() { StreamId = Guid.NewGuid() };
+			var eventStreamResponse = await this._service.CreateEventStreamAsync(eventStreamRequest);
 
-			//var empSap = new SapEmployeeInfoEntity()
-			//{
-			//	ExtEmpno = toAddEmployee.ExtEmpno,
-			//	FirstName = toAddEmployee.FirstName,
-			//	LastName = toAddEmployee.LastName,
-			//	StartDate = toAddEmployee.StartDate,
-			//	Status = toAddEmployee.Status,
-			//	TermDate = toAddEmployee.TermDate,
-			//	Active = toAddEmployee.Active,
-			//	Dept = toAddEmployee.Dept,
-			//	Position = toAddEmployee.Position,
-			//	HomeCountr = toAddEmployee.HomeCountr,
-			//	BrthCountr = toAddEmployee.BrthCountr,
-			//	Sex = toAddEmployee.Sex,
-			//	BirthDate = toAddEmployee.BirthDate,
-			//	HomeTel = toAddEmployee.HomeTel,
-			//	Mobile = toAddEmployee.Mobile,
-			//	Email = toAddEmployee.Email,
-			//	HomeStreet = toAddEmployee.HomeStreet,
-			//	HomeZip = toAddEmployee.HomeZip,
-			//	MartStatus = toAddEmployee.MartStatus
-			//};
+			EmployeeInfoCreateResponse response;
 
-			throw new NotImplementedException();
+			if (eventStreamResponse.Error != null)
+			{
+				response = new EmployeeInfoCreateResponse()
+				{
+					Error = eventStreamResponse.Error
+				};
+			}
+
+			request.StreamId = eventStreamResponse.Data.StreamId;
+
+			response = await this._service.CreateEmployeeInfoAsync(request);
+
+			return await Task.FromResult(response);
 		}
 	}
 }

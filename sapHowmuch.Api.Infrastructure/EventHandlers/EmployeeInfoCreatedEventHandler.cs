@@ -1,10 +1,12 @@
-﻿using sapHowmuch.Api.Common.Interfaces;
+﻿using AutoMapper;
+using Newtonsoft.Json;
+using sapHowmuch.Api.Common.Interfaces;
 using sapHowmuch.Api.Infrastructure.Events;
 using sapHowmuch.Api.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace sapHowmuch.Api.Infrastructure.EventHandlers
@@ -15,6 +17,7 @@ namespace sapHowmuch.Api.Infrastructure.EventHandlers
 	public class EmployeeInfoCreatedEventHandler : BaseEventHandler<EmployeeInfoCreatedEvent>
 	{
 		private readonly IBaseRepository<EventStream> _eventRepository;
+
 		// TODO: 엔티티에 대한 리파지터리 전략 결정
 		private readonly string _eventType;
 
@@ -39,9 +42,17 @@ namespace sapHowmuch.Api.Infrastructure.EventHandlers
 		/// </summary>
 		/// <param name="streamId">The stream id.</param>
 		/// <returns>Returns the list of events.</returns>
-		protected override Task<IEnumerable<BaseEvent>> OnLoadAsync(Guid streamId)
+		protected override async Task<IEnumerable<BaseEvent>> OnLoadAsync(Guid streamId)
 		{
-			throw new NotImplementedException();
+			var streams = await this._eventRepository
+				.Get()
+				.Where(p => p.EventType.Equals(this._eventType, StringComparison.InvariantCultureIgnoreCase))
+				.OrderByDescending(p => p.Sequence)
+				.ToListAsync();
+
+			var events = streams.Select(p => JsonConvert.DeserializeObject<EmployeeInfoCreatedEvent>(p.EventBody));
+
+			return events;
 		}
 
 		/// <summary>
@@ -49,9 +60,15 @@ namespace sapHowmuch.Api.Infrastructure.EventHandlers
 		/// </summary>
 		/// <param name="ev">Event instance.</param>
 		/// <returns>Returns <c>True</c>, if the given event has been processed; otherwise returns <c>False</c>.</returns>
-		protected override Task<bool> OnProcessingAsync(BaseEvent ev)
+		protected override async Task<bool> OnProcessingAsync(BaseEvent ev)
 		{
-			throw new NotImplementedException();
+			var @event = (ev as EmployeeInfoCreatedEvent);
+			var stream = Mapper.Map<EventStream>(@event);
+			this._eventRepository.Add(stream);
+
+			// TODO: SAP 쪽으로 DI Server 혹은 DI API 를 통해서 구체화 필요
+
+			return await Task.FromResult(true);
 		}
 	}
 }
