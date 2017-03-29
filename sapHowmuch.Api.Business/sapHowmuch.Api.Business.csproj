@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1346991B-F1DC-408A-9F90-38B2D85D5147}</ProjectGuid>
+    <ProjectGuid>{64BD10B9-9590-4D9C-8C8B-EC58E1FC8C4F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>sapHowmuch.Api.Infrastructure</RootNamespace>
-    <AssemblyName>sapHowmuch.Api.Infrastructure</AssemblyName>
+    <RootNamespace>sapHowmuch.Api.Business</RootNamespace>
+    <AssemblyName>sapHowmuch.Api.Business</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -66,47 +66,16 @@
       <Link>Properties\sharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DependencyResolver.cs" />
-    <Compile Include="EventHandlers\BaseEventHandler.cs" />
-    <Compile Include="EventHandlers\EventStreamCreatedEventHandler.cs" />
-    <Compile Include="EventHandlers\IEventHandler.cs" />
-    <Compile Include="EventHandlers\Profiles\EventStreamCreatedEventToEventStreamMapperProfile.cs" />
-    <Compile Include="EventProcessors\IEventProcessor.cs" />
-    <Compile Include="Events\BaseEvent.cs" />
-    <Compile Include="Events\EventStreamCreatedEvent.cs" />
-    <Compile Include="Events\InputValueChangedEvent.cs" />
-    <Compile Include="Events\Projector.cs" />
-    <Compile Include="Models\EventStream.cs" />
-    <Compile Include="Models\Requests\BaseRequest.cs" />
-    <Compile Include="Models\Requests\EventStreamCreateRequest.cs" />
-    <Compile Include="Models\Requests\InputChangeRequest.cs" />
-    <Compile Include="Models\Responses\BaseResponse.cs" />
-    <Compile Include="Models\Responses\Data\BaseResponseData.cs" />
-    <Compile Include="Models\Responses\Data\EventStreamResponseData.cs" />
-    <Compile Include="Models\Responses\Data\ResponseError.cs" />
-    <Compile Include="Models\Responses\EventStreamCreateResponse.cs" />
-    <Compile Include="Models\SapQueryModel\DocumentTypeEntity.cs" />
-    <Compile Include="Models\SapQueryModel\ISapEntity.cs" />
-    <Compile Include="Models\SapQueryModel\MasterTypeEntity.cs" />
-    <Compile Include="Models\SapQueryModel\SapBudgetCenterEntity.cs" />
-    <Compile Include="Models\SapQueryModel\SapBusinessPartnerEntity.cs" />
-    <Compile Include="Models\SapQueryModel\SapCoaEntity.cs" />
-    <Compile Include="Models\SapQueryModel\SapCostCenterEntity.cs" />
-    <Compile Include="Models\SapQueryModel\SapCountryEntity.cs" />
-    <Compile Include="Models\SapQueryModel\SapDepartmentEntity.cs" />
-    <Compile Include="Models\SapQueryModel\SapEmployeeInfoEntity.cs" />
-    <Compile Include="Models\SapQueryModel\SapEmployeePositionEntity.cs" />
-    <Compile Include="Models\SapQueryModel\SapEmployeeStatusEntity.cs" />
-    <Compile Include="Models\SapQueryModel\SapItemEntity.cs" />
+    <Compile Include="EventHandlers\EmployeeInfoCreatedEventHandler.cs" />
+    <Compile Include="EventHandlers\Profiles\EmployeeInfoCreatedEventToEventStreamMapperProfile.cs" />
+    <Compile Include="Events\EmployeeInfoCreatedEvent.cs" />
+    <Compile Include="Models\Requests\EmployeeInfoCreateRequest.cs" />
+    <Compile Include="Models\Responses\Data\EmployeeInfoCreateResponseData.cs" />
+    <Compile Include="Models\Responses\EmployeeInfoCreateResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestBuilders\IRequestBuilder.cs" />
-    <Compile Include="RequestHandlers\BaseRequestHandler.cs" />
-    <Compile Include="RequestHandlers\EventStreamCreateRequestHandler.cs" />
-    <Compile Include="RequestHandlers\IRequestHandler.cs" />
-    <Compile Include="RequestHandlers\Profiles\EventStreamCreateRequestToEventStreamCreatedEventMapperProfile.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <Compile Include="RequestBuilders\EmployeeInfoCreateRequestBuilder.cs" />
+    <Compile Include="RequestHandlers\EmployeeInfoCreateRequestHandler.cs" />
+    <Compile Include="RequestHandlers\Profiles\EmployeeInfoCreateRequestToEmployeeInfoCreatedEventMapperProfile.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -114,6 +83,14 @@
       <Project>{5ED7470F-CBCE-4664-A286-BAB127C2D2DE}</Project>
       <Name>sapHowmuch.Api.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\sapHowmuch.Api.Infrastructure\sapHowmuch.Api.Infrastructure.csproj">
+      <Project>{1346991B-F1DC-408A-9F90-38B2D85D5147}</Project>
+      <Name>sapHowmuch.Api.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

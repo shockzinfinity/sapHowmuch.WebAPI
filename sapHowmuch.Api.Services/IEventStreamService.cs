@@ -1,4 +1,6 @@
-﻿using sapHowmuch.Api.Infrastructure.Models.Requests;
+﻿using sapHowmuch.Api.Business.Models.Requests;
+using sapHowmuch.Api.Business.Models.Responses;
+using sapHowmuch.Api.Infrastructure.Models.Requests;
 using sapHowmuch.Api.Infrastructure.Models.Responses;
 using System;
 using System.Threading.Tasks;

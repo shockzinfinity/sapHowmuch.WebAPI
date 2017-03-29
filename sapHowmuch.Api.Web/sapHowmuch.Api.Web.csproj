@@ -283,6 +283,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\sapHowmuch.Api.Business\sapHowmuch.Api.Business.csproj">
+      <Project>{64BD10B9-9590-4D9C-8C8B-EC58E1FC8C4F}</Project>
+      <Name>sapHowmuch.Api.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\sapHowmuch.Api.Common\sapHowmuch.Api.Common.csproj">
       <Project>{5ED7470F-CBCE-4664-A286-BAB127C2D2DE}</Project>
       <Name>sapHowmuch.Api.Common</Name>

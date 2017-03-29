@@ -77,6 +77,7 @@ namespace sapHowmuch.Api.Web
 				cfg.AddProfiles(
 					"sapHowmuch.Api.Infrastructure",
 					"sapHowmuch.Api.EventProcessors",
+					"sapHowmuch.Api.Business",
 					"sapHowmuch.Api.Repositories",
 					"sapHowmuch.Api.Services");
 			});
@@ -109,7 +110,7 @@ namespace sapHowmuch.Api.Web
 			// 토큰의 expire 타임은 짧게 가져가고
 			// refresh token 을 제공하여, 토큰의 재사용을 유도하는 정책으로 간다.
 			var audience = ConfigurationManager.AppSettings["resourceApiClientId"];
-			var secret = TextEncodings.Base64Url.Decode("grUrtKXYxwlrbuzUt9RHRbe3MULOK5gR/oJOPtcP3YI="); // TODO: to web.config
+			var secret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["resourceApiClientSecret"]);
 
 			app.UseJwtBearerAuthentication(
 				new JwtBearerAuthenticationOptions

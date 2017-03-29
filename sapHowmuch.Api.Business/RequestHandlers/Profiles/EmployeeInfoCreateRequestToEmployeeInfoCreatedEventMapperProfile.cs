@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using sapHowmuch.Api.Infrastructure.Events;
-using sapHowmuch.Api.Infrastructure.Models.Requests;
+using sapHowmuch.Api.Business.Events;
+using sapHowmuch.Api.Business.Models.Requests;
 
-namespace sapHowmuch.Api.Infrastructure.RequestHandlers.Profiles
+namespace sapHowmuch.Api.Business.RequestHandlers.Profiles
 {
 	public class EmployeeInfoCreateRequestToEmployeeInfoCreatedEventMapperProfile : Profile
 	{

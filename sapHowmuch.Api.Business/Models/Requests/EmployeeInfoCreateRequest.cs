@@ -1,11 +1,10 @@
-﻿using System;
+﻿using sapHowmuch.Api.Infrastructure.Models.Requests;
+using System;
 
-namespace sapHowmuch.Api.Infrastructure.Events
+namespace sapHowmuch.Api.Business.Models.Requests
 {
-	public class EmployeeInfoCreatedEvent : BaseEvent
+	public class EmployeeInfoCreateRequest : BaseRequest
 	{
-		public override string Name => this.GetType().Name;
-
 		public string ExtEmpno { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }

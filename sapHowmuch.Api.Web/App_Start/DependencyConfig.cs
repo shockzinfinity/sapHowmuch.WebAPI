@@ -16,6 +16,7 @@ namespace sapHowmuch.Api.Web
 
 			ComponentLoader.LoadContainer(builder, ".\\bin", "sapHowmuch.Api.Infrastructure.dll");
 			ComponentLoader.LoadContainer(builder, ".\\bin", "sapHowmuch.Api.EventProcessors.dll");
+			ComponentLoader.LoadContainer(builder, ".\\bin", "sapHowmuch.Api.Business.dll");
 			ComponentLoader.LoadContainer(builder, ".\\bin", "sapHowmuch.Api.Repositories.dll");
 			ComponentLoader.LoadContainer(builder, ".\\bin", "sapHowmuch.Api.Services.dll");
 

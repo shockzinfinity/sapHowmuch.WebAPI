@@ -1,4 +1,8 @@
-﻿using sapHowmuch.Api.Infrastructure.EventProcessors;
+﻿using sapHowmuch.Api.Business.Events;
+using sapHowmuch.Api.Business.Models.Requests;
+using sapHowmuch.Api.Business.Models.Responses;
+using sapHowmuch.Api.Business.Models.Responses.Data;
+using sapHowmuch.Api.Infrastructure.EventProcessors;
 using sapHowmuch.Api.Infrastructure.Events;
 using sapHowmuch.Api.Infrastructure.Models.Requests;
 using sapHowmuch.Api.Infrastructure.Models.Responses;

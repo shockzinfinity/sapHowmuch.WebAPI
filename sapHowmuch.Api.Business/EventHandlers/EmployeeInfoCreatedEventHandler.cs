@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
+using sapHowmuch.Api.Business.Events;
 using sapHowmuch.Api.Common.Interfaces;
+using sapHowmuch.Api.Infrastructure.EventHandlers;
 using sapHowmuch.Api.Infrastructure.Events;
 using sapHowmuch.Api.Infrastructure.Models;
 using System;
@@ -9,7 +11,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace sapHowmuch.Api.Infrastructure.EventHandlers
+namespace sapHowmuch.Api.Business.EventHandlers
 {
 	/// <summary>
 	/// This represents the processor entity for the <see cref="EmployeeInfoCreatedEvent" /> class.

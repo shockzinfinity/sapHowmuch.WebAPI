@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
-using sapHowmuch.Api.Infrastructure.Events;
+using sapHowmuch.Api.Business.Events;
 using sapHowmuch.Api.Infrastructure.Models;
 
-namespace sapHowmuch.Api.Infrastructure.EventHandlers.Profiles
+namespace sapHowmuch.Api.Business.EventHandlers.Profiles
 {
 	public class EmployeeInfoCreatedEventToEventStreamMapperProfile : Profile
 	{
