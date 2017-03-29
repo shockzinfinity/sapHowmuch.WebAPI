@@ -1,6 +1,5 @@
 namespace sapHowmuch.Api.Repositories.Migrations
 {
-	using System;
 	using System.Data.Entity.Migrations;
 
 	public partial class initial : DbMigration
@@ -23,7 +22,6 @@ namespace sapHowmuch.Api.Repositories.Migrations
 					ProjectedBy = c.Guid(nullable: false),
 				})
 				.PrimaryKey(t => t.EventId);
-
 		}
 
 		public override void Down()

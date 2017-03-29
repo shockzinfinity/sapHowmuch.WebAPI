@@ -26,6 +26,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		private ModelFactory _modelFactory;
+
 		protected ModelFactory TheModelFactory
 		{
 			get { return _modelFactory ?? new ModelFactory(this.Request, this.AppUserManager, this.AppRoleManager); }

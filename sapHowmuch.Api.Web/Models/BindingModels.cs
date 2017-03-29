@@ -83,10 +83,13 @@ namespace sapHowmuch.Api.Web.Models
 		[Required]
 		[MaxLength(100)]
 		public string Name { get; set; }
+
 		[JsonConverter(typeof(StringEnumConverter))]
 		public ApplicationType ApplicationType { get; set; }
+
 		public bool Active { get; set; }
 		public int RefreshTokenLifeTime { get; set; }
+
 		[MaxLength(200)]
 		public string AllowedOrigin { get; set; }
 	}

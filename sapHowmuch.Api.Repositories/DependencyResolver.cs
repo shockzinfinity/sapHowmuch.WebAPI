@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using sapHowmuch.Api.Common.Interfaces;
 using sapHowmuch.Api.Infrastructure.Models;
-using sapHowmuch.Api.Repositories.SapEntities;
 using System.ComponentModel.Composition;
 
 namespace sapHowmuch.Api.Repositories
