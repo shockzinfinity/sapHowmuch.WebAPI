@@ -90,7 +90,7 @@ namespace sapHowmuch.Api.Web
 
 		private void ConfigureOAuth(IAppBuilder app)
 		{
-			var issuer = ConfigurationManager.AppSettings["Issuer"];
+			var issuer = ConfigurationManager.AppSettings["tokenIssuer"];
 
 			OAuthAuthorizationServerOptions serverOptions = new OAuthAuthorizationServerOptions
 			{

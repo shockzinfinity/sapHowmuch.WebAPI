@@ -50,9 +50,11 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SAPBusinessOneSDK, Version=1.0.0.1, Culture=neutral, PublicKeyToken=c7c3cb60e45d119f, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -76,6 +78,7 @@
     <Compile Include="RequestBuilders\EmployeeInfoCreateRequestBuilder.cs" />
     <Compile Include="RequestHandlers\EmployeeInfoCreateRequestHandler.cs" />
     <Compile Include="RequestHandlers\Profiles\EmployeeInfoCreateRequestToEmployeeInfoCreatedEventMapperProfile.cs" />
+    <Compile Include="SapCompany.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -8,6 +8,7 @@ using sapHowmuch.Api.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -69,6 +70,19 @@ namespace sapHowmuch.Api.Business.EventHandlers
 			this._eventRepository.Add(stream);
 
 			// TODO: SAP 쪽으로 DI Server 혹은 DI API 를 통해서 구체화 필요
+			SAPbobsCOM.Recordset recordset = SapCompany.DICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset) as SAPbobsCOM.Recordset;
+
+			recordset.DoQuery("SELECT * FROM [OACT]");
+
+			if (recordset.RecordCount > 0)
+			{
+				while (!recordset.EoF)
+				{
+					Debug.WriteLine(recordset.Fields.Item(0).Value.ToString().Trim());
+
+					recordset.MoveNext();
+				}
+			}
 
 			return await Task.FromResult(true);
 		}

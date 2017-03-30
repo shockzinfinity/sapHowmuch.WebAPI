@@ -29,6 +29,10 @@ namespace sapHowmuch.Api.Business
 				.As<IEventHandler>()
 				.PropertiesAutowired()
 				.InstancePerLifetimeScope();
+
+			// for sap company
+			registerComponent.Builder.RegisterInstance(SapCompany.DICompany)
+				.AsSelf();
 		}
 	}
 }
