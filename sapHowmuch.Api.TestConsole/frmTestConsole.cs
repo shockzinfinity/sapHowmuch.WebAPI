@@ -12,6 +12,8 @@ namespace sapHowmuch.Api.TestConsole
 {
 	public partial class frmTestConsole : Form
 	{
+		private const string _apiBaseAddress = "http://192.168.1.229:9091/";
+
 		public frmTestConsole()
 		{
 			InitializeComponent();
