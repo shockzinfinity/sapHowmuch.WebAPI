@@ -1,6 +1,6 @@
 ﻿namespace sapHowmuch.Api.Infrastructure.Models
 {
-	public class SapBudgetCenterEntity : MasterTypeEntity
+	public class SapBudgetDepartmentEntity : MasterTypeEntity
 	{
 		public override string Code { get { return PrcCode; } }
 

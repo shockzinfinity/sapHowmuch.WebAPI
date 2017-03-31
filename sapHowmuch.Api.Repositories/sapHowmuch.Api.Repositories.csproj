@@ -109,7 +109,7 @@
     <Compile Include="SapEntities\Profiles\OHPSToSapEmployeePositionEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OHSTToSapEmployeeStatusEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OITMToSapItemEntityMapperProfile.cs" />
-    <Compile Include="SapEntities\Profiles\OPRCToSapBudgetCenterEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\OPRCToSapBudgetDepartmentEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OPRCToSapCostCenterEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OUDPToSapDepartmentEntityMapperProfile.cs" />
     <Compile Include="SapQueryRepository.cs" />

@@ -20,6 +20,11 @@ namespace sapHowmuch.Api.Infrastructure.Models
 		public string AcctName { get; set; } // nvarchar(100), null
 
 		/// <summary>
+		/// 계정 Level
+		/// </summary>
+		public short? Levels { get; set; }
+
+		/// <summary>
 		/// 계정 유형
 		/// Account Category ('I' = Sales, 'E' = Expenditure, 'N' = Other)
 		/// </summary>

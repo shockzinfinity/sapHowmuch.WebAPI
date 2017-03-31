@@ -15,7 +15,19 @@ namespace sapHowmuch.Api.Repositories
 
 		#endregion COA (Chart of Accounts)
 
-		#region Employee
+		#region Cost Center & Budget Center
+
+		Task<IEnumerable<SapCostCenterEntity>> GetCostCenters(int dimCode);
+
+		Task<SapCostCenterEntity> GetCostCenterBy(int dimCode, string prcCode);
+
+		Task<IEnumerable<SapBudgetDepartmentEntity>> GetBudgetDepartments(int dimCode);
+
+		Task<SapBudgetDepartmentEntity> GetBudgetDepartmentBy(int dimCode, string prcCode);
+
+		#endregion Cost Center & Budget Center
+
+		#region Employee, Employee Position, Employee Status, Country, Department
 
 		Task<IEnumerable<SapEmployeeInfoEntity>> GetEmployees();
 
@@ -27,11 +39,19 @@ namespace sapHowmuch.Api.Repositories
 
 		Task<SapCountryEntity> GetCountrieBy(string code);
 
+		Task<IEnumerable<SapEmployeePositionEntity>> GetEmployeePositions();
+
 		Task<SapEmployeePositionEntity> GetEmployeePositionBy(int posId);
+
+		Task<IEnumerable<SapEmployeeStatusEntity>> GetEmployeeStatuses();
 
 		Task<SapEmployeeStatusEntity> GetEmployeeStatus(int statusId);
 
-		#endregion Employee
+		Task<IEnumerable<SapDepartmentEntity>> GetDepartments();
+
+		Task<SapDepartmentEntity> GetDepartmentBy(int code);
+
+		#endregion Employee, Employee Position, Employee Status, Country, Department
 
 		#region Business Partner
 
