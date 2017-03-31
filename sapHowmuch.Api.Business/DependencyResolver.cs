@@ -30,9 +30,9 @@ namespace sapHowmuch.Api.Business
 				.PropertiesAutowired()
 				.InstancePerLifetimeScope();
 
-			// for sap company
-			registerComponent.Builder.RegisterInstance(SapCompany.DICompany)
-				.AsSelf();
+			registerComponent.Builder.RegisterInstance(new SapCompany())
+				.AsSelf()
+				.PropertiesAutowired();
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
 using sapHowmuch.Api.Business.Events;
+using sapHowmuch.Api.Common.Extensions;
 using sapHowmuch.Api.Common.Interfaces;
 using sapHowmuch.Api.Infrastructure.EventHandlers;
 using sapHowmuch.Api.Infrastructure.Events;
@@ -8,7 +9,6 @@ using sapHowmuch.Api.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -70,17 +70,80 @@ namespace sapHowmuch.Api.Business.EventHandlers
 			this._eventRepository.Add(stream);
 
 			// TODO: SAP 쪽으로 DI Server 혹은 DI API 를 통해서 구체화 필요
-			SAPbobsCOM.Recordset recordset = SapCompany.DICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset) as SAPbobsCOM.Recordset;
+			SAPbobsCOM.EmployeesInfo employeeInfo = null;
 
-			recordset.DoQuery("SELECT * FROM [OACT]");
-
-			if (recordset.RecordCount > 0)
+			try
 			{
-				while (!recordset.EoF)
-				{
-					Debug.WriteLine(recordset.Fields.Item(0).Value.ToString().Trim());
+				employeeInfo = SapCompany.DICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oEmployeesInfo) as SAPbobsCOM.EmployeesInfo;
 
-					recordset.MoveNext();
+				employeeInfo.ExternalEmployeeNumber = @event.ExtEmpno;
+				employeeInfo.LastName = @event.LastName;
+				employeeInfo.FirstName = @event.FirstName;
+
+				if (@event.StartDate.HasValue)
+					employeeInfo.StartDate = @event.StartDate.Value;
+
+				if (@event.Status.HasValue)
+					employeeInfo.StatusCode = @event.Status.Value;
+
+				if (@event.TermDate.HasValue)
+					employeeInfo.TerminationDate = @event.TermDate.Value;
+
+				if (!string.IsNullOrWhiteSpace(@event.Active))
+					employeeInfo.Active = @event.Active.ToSBOYesOrNo();
+
+				if (@event.Dept.HasValue)
+					employeeInfo.Department = @event.Dept.Value;
+
+				employeeInfo.Position = @event.Position;
+				employeeInfo.HomeCountry = @event.HomeCountr;
+				employeeInfo.CountryOfBirth = @event.BrthCountr;
+
+				if (!string.IsNullOrWhiteSpace(@event.Sex))
+					employeeInfo.Gender = @event.Sex.ToSBOGenderType();
+
+				if (@event.BirthDate.HasValue)
+					employeeInfo.DateOfBirth = @event.BirthDate.Value;
+
+				employeeInfo.HomePhone = @event.HomeTel;
+				employeeInfo.MobilePhone = @event.Mobile;
+				employeeInfo.eMail = @event.Email;
+				employeeInfo.HomeStreet = @event.HomeStreet;
+				employeeInfo.HomeZipCode = @event.HomeZip;
+
+				if (!string.IsNullOrWhiteSpace(@event.MartStatus))
+					employeeInfo.MartialStatus = @event.MartStatus.ToSBOMeritalStatus();
+
+				// TODO: add 하는 오브젝트의 user field 에 event id 를 넣고,
+				// end point 에서 쿼리 리파지터리를 통해
+				// 해당 event id 에 해당하는 오브젝트의 id 를 받아오는 방법으로 키를 받도록 한다.
+
+				int result = employeeInfo.Add();
+
+				if (result != 0)
+				{
+					throw new Exception($"SBO Error code: {SapCompany.DICompany.GetLastErrorCode()}, Error description: {SapCompany.DICompany.GetLastErrorDescription()}");
+				}
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+			finally
+			{
+				if (employeeInfo != null)
+				{
+					try
+					{
+						while (System.Runtime.InteropServices.Marshal.ReleaseComObject(employeeInfo) > 0) ;
+					}
+					catch
+					{
+					}
+					finally
+					{
+						employeeInfo = null;
+					}
 				}
 			}
 

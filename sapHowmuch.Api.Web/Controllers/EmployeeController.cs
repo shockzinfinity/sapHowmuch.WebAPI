@@ -1,17 +1,12 @@
 ﻿using sapHowmuch.Api.Business.Models.Requests;
 using sapHowmuch.Api.Business.Models.Responses;
-using sapHowmuch.Api.Infrastructure.Models;
 using sapHowmuch.Api.Infrastructure.Models.Requests;
-using sapHowmuch.Api.Infrastructure.Models.Responses;
 using sapHowmuch.Api.Repositories;
 using sapHowmuch.Api.Services;
 using sapHowmuch.Api.Web.Infrastructure;
-using sapHowmuch.Api.Web.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace sapHowmuch.Api.Web.Controllers
@@ -102,7 +97,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Create employee info 
+		/// Create employee info
 		/// </summary>
 		/// <param name="request">The <see cref="EmployeeInfoCreateRequest" /> instance.</param>
 		/// <returns>Returns the <see cref="EmployeeInfoCreateResponse" /> instance. </returns>

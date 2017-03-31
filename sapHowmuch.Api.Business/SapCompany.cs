@@ -4,12 +4,12 @@ using System.Configuration;
 
 namespace sapHowmuch.Api.Business
 {
-	public static class SapCompany
+	public class SapCompany
 	{
 		private static Company _company;
 		public static Company DICompany { get { return _company; } }
 
-		static SapCompany()
+		public SapCompany()
 		{
 			ConnectToCompany();
 		}
@@ -40,18 +40,8 @@ namespace sapHowmuch.Api.Business
 			_company = new Company();
 
 			_company.UseTrusted = false;
-			_company.language = BoSuppLangs.ln_Korean_Kr; // TODO: 추후 파라미터 화
-
-			// NOTE: 현재 DI API BoDataServerTypes 에 MSSQL2014 가 적용이 되지 않은 상태이므로, 일단 연결을 위해서만 추가한 구문
-			if (dbType == "dst_MSSQL2014")
-			{
-				_company.DbServerType = (BoDataServerTypes)8;
-			}
-			else
-			{
-				_company.DbServerType = (BoDataServerTypes)Enum.Parse(typeof(BoDataServerTypes), dbType);
-			}
-
+			_company.language = BoSuppLangs.ln_Korean_Kr;
+			_company.DbServerType = (BoDataServerTypes)Enum.Parse(typeof(BoDataServerTypes), dbType);
 			_company.LicenseServer = licenseServer;
 			_company.Server = server;
 			_company.DbUserName = dbUserName;
@@ -62,14 +52,11 @@ namespace sapHowmuch.Api.Business
 
 			try
 			{
-				// TODO: 9.2 와 9.1 DI API 테스트에 무리가 있음.
-				// fix 한 이후 테스트 되어야 함.
-				// 9.1 로 일단 진행 2017-03-30
 				result = _company.Connect();
 			}
 			catch (Exception ex)
 			{
-				throw;
+				throw ex;
 			}
 
 			if (result != 0)
