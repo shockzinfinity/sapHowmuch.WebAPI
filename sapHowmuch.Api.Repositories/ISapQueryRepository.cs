@@ -181,7 +181,7 @@ namespace sapHowmuch.Api.Repositories
 		/// </summary>
 		/// <param name="code"></param>
 		/// <returns></returns>
-		Task<SapDepartmentEntity> GetDimensionBy(int code);
+		Task<SapDimensionEntity> GetDimensionBy(int code);
 
 		#endregion Dimension
 	}

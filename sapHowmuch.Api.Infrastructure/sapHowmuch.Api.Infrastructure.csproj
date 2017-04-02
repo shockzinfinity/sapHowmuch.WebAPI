@@ -111,6 +111,7 @@
     <Compile Include="Models\SapQueryModel\SapCostCenterEntity.cs" />
     <Compile Include="Models\SapQueryModel\SapCountryEntity.cs" />
     <Compile Include="Models\SapQueryModel\SapDepartmentEntity.cs" />
+    <Compile Include="Models\SapQueryModel\SapDimensionEntity.cs" />
     <Compile Include="Models\SapQueryModel\SapEmployeeInfoEntity.cs" />
     <Compile Include="Models\SapQueryModel\SapEmployeePositionEntity.cs" />
     <Compile Include="Models\SapQueryModel\SapEmployeeStatusEntity.cs" />

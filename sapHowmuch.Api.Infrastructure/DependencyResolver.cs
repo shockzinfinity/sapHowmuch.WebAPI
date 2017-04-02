@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using sapHowmuch.Api.Common.Interfaces;
 using sapHowmuch.Api.Infrastructure.EventHandlers;
-using sapHowmuch.Api.Infrastructure.RequestBuilders;
 using sapHowmuch.Api.Infrastructure.RequestHandlers;
 using System.ComponentModel.Composition;
 

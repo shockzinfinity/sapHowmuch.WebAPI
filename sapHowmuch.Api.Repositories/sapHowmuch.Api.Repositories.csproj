@@ -90,6 +90,7 @@
       <DependentUpon>201703230929325_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="SapEntities\POCOs\ODIM.cs" />
     <Compile Include="SapEntities\POCOs\OCRD.cs" />
     <Compile Include="SapEntities\POCOs\OCRY.cs" />
     <Compile Include="SapEntities\POCOs\OHPS.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="SapEntities\Profiles\OACTToSapCoaEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OCRDToSapBusinessPartnerEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OCRYToSapCountryEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\ODIMToSapDimensionEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OHEMToSapEmployeeEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OHPSToSapEmployeePositionEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OHSTToSapEmployeeStatusEntityMapperProfile.cs" />
