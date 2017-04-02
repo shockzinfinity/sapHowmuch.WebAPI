@@ -227,6 +227,24 @@ namespace sapHowmuch.Api.Repositories
 
 		#endregion Item
 
+		#region Dimension
+
+		public virtual async Task<IEnumerable<SapDimensionEntity>> GetDimensions()
+		{
+			var query = await GetAsync<ODIM>();
+
+			return await Task.FromResult(Mapper.Map<IEnumerable<ODIM>, IEnumerable<SapDimensionEntity>>(query.AsEnumerable())).ConfigureAwait(false);
+		}
+
+		public virtual async Task<SapDimensionEntity> GetDimensionBy(int code)
+		{
+			var query = await GetAsync<ODIM>(d => d.DimCode == code);
+
+			return await Task.FromResult(Mapper.Map<ODIM, SapDimensionEntity>(query.SingleOrDefault())).ConfigureAwait(false);
+		}
+
+		#endregion Dimension
+
 		private async Task<IQueryable<TEntity>> GetAsync<TEntity>() where TEntity : class
 		{
 			return await Task.FromResult(this._context.Set<TEntity>()).ConfigureAwait(false);

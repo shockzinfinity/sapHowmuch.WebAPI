@@ -167,5 +167,22 @@ namespace sapHowmuch.Api.Repositories
 		Task<SapItemEntity> GetItemBy(string itemCode);
 
 		#endregion Item
+
+		#region Dimension
+
+		/// <summary>
+		/// 차원 리스트
+		/// </summary>
+		/// <returns></returns>
+		Task<IEnumerable<SapDimensionEntity>> GetDimensions();
+
+		/// <summary>
+		/// 차원
+		/// </summary>
+		/// <param name="code"></param>
+		/// <returns></returns>
+		Task<SapDepartmentEntity> GetDimensionBy(int code);
+
+		#endregion Dimension
 	}
 }
