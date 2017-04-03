@@ -15,6 +15,10 @@ namespace sapHowmuch.Api.Business
 	{
 		public void Setup(IRegisterComponent registerComponent)
 		{
+			registerComponent.Builder.RegisterInstance(new SapCompany())
+				.AsSelf()
+				.PropertiesAutowired();
+
 			registerComponent.Builder.RegisterType<EmployeeInfoCreateRequestBuilder>()
 				.As<IRequestBuilder>()
 				.PropertiesAutowired()
@@ -30,9 +34,20 @@ namespace sapHowmuch.Api.Business
 				.PropertiesAutowired()
 				.InstancePerLifetimeScope();
 
-			registerComponent.Builder.RegisterInstance(new SapCompany())
-				.AsSelf()
-				.PropertiesAutowired();
+			registerComponent.Builder.RegisterType<CountryCreateRequestBuilder>()
+				.As<IRequestBuilder>()
+				.PropertiesAutowired()
+				.InstancePerLifetimeScope();
+
+			registerComponent.Builder.RegisterType<CountryCreateRequestHandler>()
+				.As<IRequestHandler>()
+				.PropertiesAutowired()
+				.InstancePerLifetimeScope();
+
+			registerComponent.Builder.RegisterType<CountryCreatedEventHandler>()
+				.As<IEventHandler>()
+				.PropertiesAutowired()
+				.InstancePerLifetimeScope();
 		}
 	}
 }

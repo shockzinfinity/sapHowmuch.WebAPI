@@ -25,5 +25,7 @@ namespace sapHowmuch.Api.Services
 		/// <param name="request">The <see cref="EmployeeInfoCreateRequest" /> instance.</param>
 		/// <returns>Returns the <see cref="EmployeeInfoCreateResponse" /> instance.</returns>
 		Task<EmployeeInfoCreateResponse> CreateEmployeeInfoAsync(EmployeeInfoCreateRequest request);
+
+		Task<CountryCreateResponse> CreateCountryAsync(CountryCreateRequest request);
 	}
 }

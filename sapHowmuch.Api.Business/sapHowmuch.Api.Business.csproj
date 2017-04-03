@@ -89,15 +89,24 @@
       <Link>Properties\sharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DependencyResolver.cs" />
+    <Compile Include="EventHandlers\CountryCreatedEventHandler.cs" />
     <Compile Include="EventHandlers\EmployeeInfoCreatedEventHandler.cs" />
+    <Compile Include="EventHandlers\Profiles\CountryCreatedEventToEventStreamMapperProfile.cs" />
     <Compile Include="EventHandlers\Profiles\EmployeeInfoCreatedEventToEventStreamMapperProfile.cs" />
+    <Compile Include="Events\CountryCreatedEvent.cs" />
     <Compile Include="Events\EmployeeInfoCreatedEvent.cs" />
+    <Compile Include="Models\Requests\CountryCreateRequest.cs" />
     <Compile Include="Models\Requests\EmployeeInfoCreateRequest.cs" />
+    <Compile Include="Models\Responses\CountryCreateResponse.cs" />
+    <Compile Include="Models\Responses\Data\CountryCreateResponseData.cs" />
     <Compile Include="Models\Responses\Data\EmployeeInfoCreateResponseData.cs" />
     <Compile Include="Models\Responses\EmployeeInfoCreateResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestBuilders\CountryCreateRequestBuilder.cs" />
     <Compile Include="RequestBuilders\EmployeeInfoCreateRequestBuilder.cs" />
+    <Compile Include="RequestHandlers\CountryCreateRequestHandler.cs" />
     <Compile Include="RequestHandlers\EmployeeInfoCreateRequestHandler.cs" />
+    <Compile Include="RequestHandlers\Profiles\CountryCreateRequestToCountryCreatedEventMapperProfile.cs" />
     <Compile Include="RequestHandlers\Profiles\EmployeeInfoCreateRequestToEmployeeInfoCreatedEventMapperProfile.cs" />
     <Compile Include="SapCompany.cs" />
   </ItemGroup>

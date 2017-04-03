@@ -237,6 +237,7 @@
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BaseMvcController.cs" />
     <Compile Include="Controllers\CoaController.cs" />
+    <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ProtectedController.cs" />

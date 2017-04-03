@@ -69,7 +69,6 @@ namespace sapHowmuch.Api.Business.EventHandlers
 			var stream = Mapper.Map<EventStream>(@event);
 			this._eventRepository.Add(stream);
 
-			// TODO: SAP 쪽으로 DI Server 혹은 DI API 를 통해서 구체화 필요
 			SAPbobsCOM.EmployeesInfo employeeInfo = null;
 
 			try
@@ -127,24 +126,12 @@ namespace sapHowmuch.Api.Business.EventHandlers
 			}
 			catch (Exception ex)
 			{
+				if (employeeInfo != null) ComObjectHelper.ReleaseComObject(employeeInfo);
 				throw ex;
 			}
 			finally
 			{
-				if (employeeInfo != null)
-				{
-					try
-					{
-						while (System.Runtime.InteropServices.Marshal.ReleaseComObject(employeeInfo) > 0) ;
-					}
-					catch
-					{
-					}
-					finally
-					{
-						employeeInfo = null;
-					}
-				}
+				if (employeeInfo != null) ComObjectHelper.ReleaseComObject(employeeInfo);
 			}
 
 			return await Task.FromResult(true);

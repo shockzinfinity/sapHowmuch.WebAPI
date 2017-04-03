@@ -165,6 +165,50 @@ namespace sapHowmuch.Api.Services
 			return await Task.FromResult(response);
 		}
 
+		public async Task<CountryCreateResponse> CreateCountryAsync(CountryCreateRequest request)
+		{
+			await this._builder.BuildAsync(request);
+
+			var handler = this._handlers.SingleOrDefault(p => p.CanHandle(request));
+
+			if (handler == null)
+			{
+				return await Task.FromResult(default(CountryCreateResponse));
+			}
+
+			var ev = handler.CreateEvent(request) as CountryCreatedEvent;
+			PopulateBaseProperties(ev);
+
+			CountryCreateResponse response;
+
+			try
+			{
+				await this._processor.ProcessEventsAsync(new[] { ev });
+
+				response = new CountryCreateResponse()
+				{
+					Data = new CountryCreateResponseData()
+					{
+						Code = ev.CountryCode,
+						Name = ev.CountryName
+					}
+				};
+			}
+			catch (Exception ex)
+			{
+				response = new CountryCreateResponse()
+				{
+					Error = new ResponseError()
+					{
+						Message = ex.Message,
+						StackTrace = ex.StackTrace
+					}
+				};
+			}
+
+			return await Task.FromResult(response);
+		}
+
 		private bool _disposed;
 
 		/// <summary>

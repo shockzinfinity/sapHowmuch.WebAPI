@@ -84,6 +84,7 @@
     <Compile Include="ComponentLoader.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Extensions\ComObjectHelper.cs" />
     <Compile Include="Extensions\ConvertHelper.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\DbContextCommandExtensions.cs" />
