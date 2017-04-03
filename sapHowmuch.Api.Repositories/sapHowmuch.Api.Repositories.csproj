@@ -82,14 +82,19 @@
       <Link>Properties\sharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="SapEntities\POCOs\BTF1.cs" />
     <Compile Include="DbContextFactory.cs" />
     <Compile Include="DependencyResolver.cs" />
     <Compile Include="ISapQueryRepository.cs" />
+    <Compile Include="SapEntities\POCOs\JDT1.cs" />
     <Compile Include="Migrations\201703230929325_initial.cs" />
     <Compile Include="Migrations\201703230929325_initial.Designer.cs">
       <DependentUpon>201703230929325_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="SapEntities\POCOs\OBTD.cs" />
+    <Compile Include="SapEntities\POCOs\OBTF.cs" />
+    <Compile Include="SapEntities\POCOs\OJDT.cs" />
     <Compile Include="SapEntities\POCOs\ODIM.cs" />
     <Compile Include="SapEntities\POCOs\OCRD.cs" />
     <Compile Include="SapEntities\POCOs\OCRY.cs" />
