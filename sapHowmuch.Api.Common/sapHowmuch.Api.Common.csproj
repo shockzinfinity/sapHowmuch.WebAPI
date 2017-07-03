@@ -110,6 +110,7 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
+    <Compile Include="Constants\sapHowmuchConstants.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
