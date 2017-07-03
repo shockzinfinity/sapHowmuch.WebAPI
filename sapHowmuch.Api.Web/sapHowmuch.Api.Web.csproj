@@ -274,6 +274,8 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <Content Include="connectionStrings.config" />
+    <Content Include="appSettings.config" />
     <None Include="Properties\PublishProfiles\229 server %289091%29.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
