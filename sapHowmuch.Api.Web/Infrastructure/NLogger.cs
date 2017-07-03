@@ -9,6 +9,9 @@ using System.Web.Http.Tracing;
 
 namespace sapHowmuch.Api.Web.Infrastructure
 {
+	/// <summary>
+	/// Log class based nLog package
+	/// </summary>
 	public class NLogger : ITraceWriter
 	{
 		private static readonly Logger _classLogger = LogManager.GetCurrentClassLogger();
@@ -24,6 +27,13 @@ namespace sapHowmuch.Api.Web.Infrastructure
 
 		private Dictionary<TraceLevel, Action<string>> _logger { get { return _loggingMap.Value; } }
 
+		/// <summary>
+		/// Trace log
+		/// </summary>
+		/// <param name="request"></param>
+		/// <param name="category"></param>
+		/// <param name="level"></param>
+		/// <param name="traceAction"></param>
 		public void Trace(HttpRequestMessage request, string category, TraceLevel level, Action<TraceRecord> traceAction)
 		{
 			if (level != TraceLevel.Off)

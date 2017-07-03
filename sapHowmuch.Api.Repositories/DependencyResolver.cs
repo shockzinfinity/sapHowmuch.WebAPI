@@ -9,6 +9,7 @@ namespace sapHowmuch.Api.Repositories
 	public class DependencyResolver : IComponent
 	{
 		private const string DbContextName = "ApiDbContext";
+		private const string SapContextName = "SapDbContext";
 
 		#region IComponent implementation
 
@@ -20,12 +21,28 @@ namespace sapHowmuch.Api.Repositories
 				.PropertiesAutowired()
 				.InstancePerLifetimeScope();
 
+			registerComponent.Builder.RegisterType<DbContextFactory<SapDbContext>>()
+				.Named<IDbContextFactory>(SapContextName)
+				.As<IDbContextFactory>()
+				.PropertiesAutowired()
+				.InstancePerLifetimeScope();
+
 			registerComponent.Builder.Register(p => new UnitOfWorkManager(p.ResolveNamed<IDbContextFactory>(DbContextName)))
 				.As<IUnitOfWorkManager>()
 				.PropertiesAutowired()
 				.InstancePerLifetimeScope();
 
-			registerComponent.Builder.RegisterType<BaseRepository<EventStream>>()
+			//registerComponent.Builder.RegisterType<BaseRepository<EventStream>>()
+			//	.AsImplementedInterfaces()
+			//	.PropertiesAutowired()
+			//	.InstancePerLifetimeScope();
+
+			registerComponent.Builder.Register(p => new BaseRepository<EventStream>(p.ResolveNamed<IDbContextFactory>(DbContextName)))
+				.AsImplementedInterfaces()
+				.PropertiesAutowired()
+				.InstancePerLifetimeScope();
+
+			registerComponent.Builder.Register(p => new SapQueryRepository(p.ResolveNamed<IDbContextFactory>(SapContextName)))
 				.AsImplementedInterfaces()
 				.PropertiesAutowired()
 				.InstancePerLifetimeScope();

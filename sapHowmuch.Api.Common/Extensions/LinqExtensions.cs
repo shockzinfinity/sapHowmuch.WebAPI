@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace sapHowmuch.Api.Common.Extensions
 {
@@ -170,10 +169,10 @@ namespace sapHowmuch.Api.Common.Extensions
 		/// <typeparam name="T"></typeparam>
 		/// <param name="list"></param>
 		/// <returns></returns>
-		public static Task<List<T>> ToListAsync<T>(this IQueryable<T> list)
-		{
-			return Task.Run(() => list.ToList());
-		}
+		//public static Task<List<T>> ToListAsync<T>(this IQueryable<T> list)
+		//{
+		//	return Task.Run(() => list.ToList());
+		//}
 
 		/// <summary>
 		/// Random 하게 OrderBy

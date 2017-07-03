@@ -37,4 +37,10 @@ namespace sapHowmuch.Api.Web.Models
 		public int RefreshTokenLifeTime { get; set; }
 		public string AllowedOrigin { get; set; }
 	}
+
+	public class EmployeeReturnModel
+	{
+		public string Url { get; set; }
+		public int Id { get; set; }
+	}
 }

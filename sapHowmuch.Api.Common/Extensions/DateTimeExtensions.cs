@@ -1,6 +1,6 @@
-﻿using System;
+﻿using sapHowmuch.Api.Common.Enums;
+using System;
 using System.Globalization;
-using sapHowmuch.Api.Common.Enums;
 
 namespace sapHowmuch.Api.Common.Extensions
 {
