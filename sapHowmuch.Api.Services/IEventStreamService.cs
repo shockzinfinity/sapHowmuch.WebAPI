@@ -1,4 +1,6 @@
-﻿using sapHowmuch.Api.Infrastructure.Models.Requests;
+﻿using sapHowmuch.Api.Business.Models.Requests;
+using sapHowmuch.Api.Business.Models.Responses;
+using sapHowmuch.Api.Infrastructure.Models.Requests;
 using sapHowmuch.Api.Infrastructure.Models.Responses;
 using System;
 using System.Threading.Tasks;
@@ -23,5 +25,7 @@ namespace sapHowmuch.Api.Services
 		/// <param name="request">The <see cref="EmployeeInfoCreateRequest" /> instance.</param>
 		/// <returns>Returns the <see cref="EmployeeInfoCreateResponse" /> instance.</returns>
 		Task<EmployeeInfoCreateResponse> CreateEmployeeInfoAsync(EmployeeInfoCreateRequest request);
+
+		Task<CountryCreateResponse> CreateCountryAsync(CountryCreateRequest request);
 	}
 }

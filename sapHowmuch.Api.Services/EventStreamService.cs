@@ -1,4 +1,8 @@
-﻿using sapHowmuch.Api.Infrastructure.EventProcessors;
+﻿using sapHowmuch.Api.Business.Events;
+using sapHowmuch.Api.Business.Models.Requests;
+using sapHowmuch.Api.Business.Models.Responses;
+using sapHowmuch.Api.Business.Models.Responses.Data;
+using sapHowmuch.Api.Infrastructure.EventProcessors;
 using sapHowmuch.Api.Infrastructure.Events;
 using sapHowmuch.Api.Infrastructure.Models.Requests;
 using sapHowmuch.Api.Infrastructure.Models.Responses;
@@ -8,7 +12,6 @@ using sapHowmuch.Api.Infrastructure.RequestHandlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace sapHowmuch.Api.Services
@@ -150,6 +153,50 @@ namespace sapHowmuch.Api.Services
 			catch (Exception ex)
 			{
 				response = new EmployeeInfoCreateResponse()
+				{
+					Error = new ResponseError()
+					{
+						Message = ex.Message,
+						StackTrace = ex.StackTrace
+					}
+				};
+			}
+
+			return await Task.FromResult(response);
+		}
+
+		public async Task<CountryCreateResponse> CreateCountryAsync(CountryCreateRequest request)
+		{
+			await this._builder.BuildAsync(request);
+
+			var handler = this._handlers.SingleOrDefault(p => p.CanHandle(request));
+
+			if (handler == null)
+			{
+				return await Task.FromResult(default(CountryCreateResponse));
+			}
+
+			var ev = handler.CreateEvent(request) as CountryCreatedEvent;
+			PopulateBaseProperties(ev);
+
+			CountryCreateResponse response;
+
+			try
+			{
+				await this._processor.ProcessEventsAsync(new[] { ev });
+
+				response = new CountryCreateResponse()
+				{
+					Data = new CountryCreateResponseData()
+					{
+						Code = ev.CountryCode,
+						Name = ev.CountryName
+					}
+				};
+			}
+			catch (Exception ex)
+			{
+				response = new CountryCreateResponse()
 				{
 					Error = new ResponseError()
 					{

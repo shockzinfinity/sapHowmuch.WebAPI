@@ -70,7 +70,47 @@ namespace sapHowmuch.Api.Repositories
 
 		#endregion COA (Chart of Accounts)
 
-		#region Employee
+		#region Cost Center & Budget Center
+
+		public virtual async Task<IEnumerable<SapCostCenterEntity>> GetCostCenters(int dimCode)
+		{
+			// NOTE: Sap 측에서 사전 Dim code 가 정의되어야 함.
+			// e.g. DimCode = 1 이 코스트센터
+			// DimCode = 2 가 예산부서
+			// 사전에 정의가 필요함
+			var query = await GetAsync<OPRC>(p => p.DimCode.HasValue && p.DimCode == dimCode);
+
+			return await Task.FromResult(Mapper.Map<IEnumerable<OPRC>, IEnumerable<SapCostCenterEntity>>(query.AsEnumerable())).ConfigureAwait(false);
+		}
+
+		public virtual async Task<SapCostCenterEntity> GetCostCenterBy(int dimCode, string prcCode)
+		{
+			var query = await GetAsync<OPRC>(p => p.DimCode.HasValue && p.DimCode == dimCode && p.PrcCode.Equals(prcCode));
+
+			return await Task.FromResult(Mapper.Map<OPRC, SapCostCenterEntity>(query.SingleOrDefault())).ConfigureAwait(false);
+		}
+
+		public virtual async Task<IEnumerable<SapBudgetDepartmentEntity>> GetBudgetDepartments(int dimCode)
+		{
+			// NOTE: Sap 측에서 사전 Dim code 가 정의되어야 함.
+			// e.g. DimCode = 1 이 코스트센터
+			// DimCode = 2 가 예산부서
+			// 사전에 정의가 필요함
+			var query = await GetAsync<OPRC>(p => p.DimCode.HasValue && p.DimCode == dimCode);
+
+			return await Task.FromResult(Mapper.Map<IEnumerable<OPRC>, IEnumerable<SapBudgetDepartmentEntity>>(query.AsEnumerable())).ConfigureAwait(false);
+		}
+
+		public virtual async Task<SapBudgetDepartmentEntity> GetBudgetDepartmentBy(int dimCode, string prcCode)
+		{
+			var query = await GetAsync<OPRC>(p => p.DimCode.HasValue && p.DimCode == dimCode && p.PrcCode.Equals(prcCode));
+
+			return await Task.FromResult(Mapper.Map<OPRC, SapBudgetDepartmentEntity>(query.SingleOrDefault())).ConfigureAwait(false);
+		}
+
+		#endregion Cost Center & Budget Center
+
+		#region Employee, Employee Position, Employee Status, Country, Department
 
 		public virtual async Task<IEnumerable<SapEmployeeInfoEntity>> GetEmployees()
 		{
@@ -107,11 +147,25 @@ namespace sapHowmuch.Api.Repositories
 			return await Task.FromResult(Mapper.Map<OCRY, SapCountryEntity>(query.SingleOrDefault())).ConfigureAwait(false);
 		}
 
+		public virtual async Task<IEnumerable<SapEmployeePositionEntity>> GetEmployeePositions()
+		{
+			var query = await GetAsync<OHPS>();
+
+			return await Task.FromResult(Mapper.Map<IEnumerable<OHPS>, IEnumerable<SapEmployeePositionEntity>>(query.AsEnumerable())).ConfigureAwait(false);
+		}
+
 		public virtual async Task<SapEmployeePositionEntity> GetEmployeePositionBy(int posId)
 		{
 			var query = await GetAsync<OHPS>(x => x.posID == posId);
 
 			return await Task.FromResult(Mapper.Map<OHPS, SapEmployeePositionEntity>(query.SingleOrDefault())).ConfigureAwait(false);
+		}
+
+		public virtual async Task<IEnumerable<SapEmployeeStatusEntity>> GetEmployeeStatuses()
+		{
+			var query = await GetAsync<OHST>();
+
+			return await Task.FromResult(Mapper.Map<IEnumerable<OHST>, IEnumerable<SapEmployeeStatusEntity>>(query.AsEnumerable())).ConfigureAwait(false);
 		}
 
 		public virtual async Task<SapEmployeeStatusEntity> GetEmployeeStatus(int statusId)
@@ -121,7 +175,21 @@ namespace sapHowmuch.Api.Repositories
 			return await Task.FromResult(Mapper.Map<OHST, SapEmployeeStatusEntity>(query.SingleOrDefault())).ConfigureAwait(false);
 		}
 
-		#endregion Employee
+		public virtual async Task<IEnumerable<SapDepartmentEntity>> GetDepartments()
+		{
+			var query = await GetAsync<OUDP>();
+
+			return await Task.FromResult(Mapper.Map<IEnumerable<OUDP>, IEnumerable<SapDepartmentEntity>>(query.AsEnumerable())).ConfigureAwait(false);
+		}
+
+		public virtual async Task<SapDepartmentEntity> GetDepartmentBy(int code)
+		{
+			var query = await GetAsync<OUDP>();
+
+			return await Task.FromResult(Mapper.Map<OUDP, SapDepartmentEntity>(query.SingleOrDefault())).ConfigureAwait(false);
+		}
+
+		#endregion Employee, Employee Position, Employee Status, Country, Department
 
 		#region Business Partner
 
@@ -158,6 +226,24 @@ namespace sapHowmuch.Api.Repositories
 		}
 
 		#endregion Item
+
+		#region Dimension
+
+		public virtual async Task<IEnumerable<SapDimensionEntity>> GetDimensions()
+		{
+			var query = await GetAsync<ODIM>();
+
+			return await Task.FromResult(Mapper.Map<IEnumerable<ODIM>, IEnumerable<SapDimensionEntity>>(query.AsEnumerable())).ConfigureAwait(false);
+		}
+
+		public virtual async Task<SapDimensionEntity> GetDimensionBy(int code)
+		{
+			var query = await GetAsync<ODIM>(d => d.DimCode == code);
+
+			return await Task.FromResult(Mapper.Map<ODIM, SapDimensionEntity>(query.SingleOrDefault())).ConfigureAwait(false);
+		}
+
+		#endregion Dimension
 
 		private async Task<IQueryable<TEntity>> GetAsync<TEntity>() where TEntity : class
 		{

@@ -29,6 +29,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
@@ -64,14 +82,20 @@
       <Link>Properties\sharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="SapEntities\POCOs\BTF1.cs" />
     <Compile Include="DbContextFactory.cs" />
     <Compile Include="DependencyResolver.cs" />
     <Compile Include="ISapQueryRepository.cs" />
+    <Compile Include="SapEntities\POCOs\JDT1.cs" />
     <Compile Include="Migrations\201703230929325_initial.cs" />
     <Compile Include="Migrations\201703230929325_initial.Designer.cs">
       <DependentUpon>201703230929325_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="SapEntities\POCOs\OBTD.cs" />
+    <Compile Include="SapEntities\POCOs\OBTF.cs" />
+    <Compile Include="SapEntities\POCOs\OJDT.cs" />
+    <Compile Include="SapEntities\POCOs\ODIM.cs" />
     <Compile Include="SapEntities\POCOs\OCRD.cs" />
     <Compile Include="SapEntities\POCOs\OCRY.cs" />
     <Compile Include="SapEntities\POCOs\OHPS.cs" />
@@ -87,11 +111,12 @@
     <Compile Include="SapEntities\Profiles\OACTToSapCoaEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OCRDToSapBusinessPartnerEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OCRYToSapCountryEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\ODIMToSapDimensionEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OHEMToSapEmployeeEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OHPSToSapEmployeePositionEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OHSTToSapEmployeeStatusEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OITMToSapItemEntityMapperProfile.cs" />
-    <Compile Include="SapEntities\Profiles\OPRCToSapBudgetCenterEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\OPRCToSapBudgetDepartmentEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OPRCToSapCostCenterEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OUDPToSapDepartmentEntityMapperProfile.cs" />
     <Compile Include="SapQueryRepository.cs" />

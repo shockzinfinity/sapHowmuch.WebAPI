@@ -29,6 +29,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
@@ -67,28 +85,22 @@
     </Compile>
     <Compile Include="DependencyResolver.cs" />
     <Compile Include="EventHandlers\BaseEventHandler.cs" />
-    <Compile Include="EventHandlers\EmployeeInfoCreatedEventHandler.cs" />
     <Compile Include="EventHandlers\EventStreamCreatedEventHandler.cs" />
     <Compile Include="EventHandlers\IEventHandler.cs" />
-    <Compile Include="EventHandlers\Profiles\EmployeeInfoCreatedEventToEventStreamMapperProfile.cs" />
     <Compile Include="EventHandlers\Profiles\EventStreamCreatedEventToEventStreamMapperProfile.cs" />
     <Compile Include="EventProcessors\IEventProcessor.cs" />
     <Compile Include="Events\BaseEvent.cs" />
-    <Compile Include="Events\EmployeeInfoCreatedEvent.cs" />
     <Compile Include="Events\EventStreamCreatedEvent.cs" />
     <Compile Include="Events\InputValueChangedEvent.cs" />
     <Compile Include="Events\Projector.cs" />
     <Compile Include="Models\EventStream.cs" />
     <Compile Include="Models\Requests\BaseRequest.cs" />
-    <Compile Include="Models\Requests\EmployeeInfoCreateRequest.cs" />
     <Compile Include="Models\Requests\EventStreamCreateRequest.cs" />
     <Compile Include="Models\Requests\InputChangeRequest.cs" />
     <Compile Include="Models\Responses\BaseResponse.cs" />
     <Compile Include="Models\Responses\Data\BaseResponseData.cs" />
-    <Compile Include="Models\Responses\Data\EmployeeInfoCreateResponseData.cs" />
     <Compile Include="Models\Responses\Data\EventStreamResponseData.cs" />
     <Compile Include="Models\Responses\Data\ResponseError.cs" />
-    <Compile Include="Models\Responses\EmployeeInfoCreateResponse.cs" />
     <Compile Include="Models\Responses\EventStreamCreateResponse.cs" />
     <Compile Include="Models\SapQueryModel\DocumentTypeEntity.cs" />
     <Compile Include="Models\SapQueryModel\ISapEntity.cs" />
@@ -99,18 +111,16 @@
     <Compile Include="Models\SapQueryModel\SapCostCenterEntity.cs" />
     <Compile Include="Models\SapQueryModel\SapCountryEntity.cs" />
     <Compile Include="Models\SapQueryModel\SapDepartmentEntity.cs" />
+    <Compile Include="Models\SapQueryModel\SapDimensionEntity.cs" />
     <Compile Include="Models\SapQueryModel\SapEmployeeInfoEntity.cs" />
     <Compile Include="Models\SapQueryModel\SapEmployeePositionEntity.cs" />
     <Compile Include="Models\SapQueryModel\SapEmployeeStatusEntity.cs" />
     <Compile Include="Models\SapQueryModel\SapItemEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestBuilders\EmployeeInfoCreateRequestBuilder.cs" />
     <Compile Include="RequestBuilders\IRequestBuilder.cs" />
     <Compile Include="RequestHandlers\BaseRequestHandler.cs" />
-    <Compile Include="RequestHandlers\EmployeeInfoCreateRequestHandler.cs" />
     <Compile Include="RequestHandlers\EventStreamCreateRequestHandler.cs" />
     <Compile Include="RequestHandlers\IRequestHandler.cs" />
-    <Compile Include="RequestHandlers\Profiles\EmployeeInfoCreateRequestToEmployeeInfoCreatedEventMapperProfile.cs" />
     <Compile Include="RequestHandlers\Profiles\EventStreamCreateRequestToEventStreamCreatedEventMapperProfile.cs" />
   </ItemGroup>
   <ItemGroup>

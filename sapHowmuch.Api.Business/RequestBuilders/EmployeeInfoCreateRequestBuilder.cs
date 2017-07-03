@@ -1,11 +1,13 @@
-﻿using sapHowmuch.Api.Infrastructure.EventHandlers;
+﻿using sapHowmuch.Api.Business.Models.Requests;
+using sapHowmuch.Api.Infrastructure.EventHandlers;
 using sapHowmuch.Api.Infrastructure.Models.Requests;
+using sapHowmuch.Api.Infrastructure.RequestBuilders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace sapHowmuch.Api.Infrastructure.RequestBuilders
+namespace sapHowmuch.Api.Business.RequestBuilders
 {
 	/// <summary>
 	/// This represents the builder entity for user create request.

@@ -1,6 +1,7 @@
-﻿using System;
+﻿using sapHowmuch.Api.Infrastructure.Models.Responses.Data;
+using System;
 
-namespace sapHowmuch.Api.Infrastructure.Models.Responses.Data
+namespace sapHowmuch.Api.Business.Models.Responses.Data
 {
 	/// <summary>
 	/// This represents the response data entity for employee info.

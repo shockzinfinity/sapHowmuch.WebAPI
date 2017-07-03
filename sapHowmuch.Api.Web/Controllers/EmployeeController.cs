@@ -1,15 +1,12 @@
-﻿using sapHowmuch.Api.Infrastructure.Models;
+﻿using sapHowmuch.Api.Business.Models.Requests;
+using sapHowmuch.Api.Business.Models.Responses;
 using sapHowmuch.Api.Infrastructure.Models.Requests;
-using sapHowmuch.Api.Infrastructure.Models.Responses;
 using sapHowmuch.Api.Repositories;
 using sapHowmuch.Api.Services;
 using sapHowmuch.Api.Web.Infrastructure;
-using sapHowmuch.Api.Web.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace sapHowmuch.Api.Web.Controllers
@@ -100,7 +97,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Create employee info 
+		/// Create employee info
 		/// </summary>
 		/// <param name="request">The <see cref="EmployeeInfoCreateRequest" /> instance.</param>
 		/// <returns>Returns the <see cref="EmployeeInfoCreateResponse" /> instance. </returns>
@@ -108,6 +105,10 @@ namespace sapHowmuch.Api.Web.Controllers
 		[Route("add-employee")]
 		public async Task<EmployeeInfoCreateResponse> AddEmployee(EmployeeInfoCreateRequest request)
 		{
+			// NOTE: default flow for api logic
+			// 이벤트스트림 생성 -> api 로직 핸들링
+			// event stream 에서 기록을 안하기 위해서는 이벤트 스트림 request 를 생성하지 않고,
+			// 바로 event stream id 를 생성하면 된다.
 			var eventStreamRequest = new EventStreamCreateRequest() { StreamId = Guid.NewGuid() };
 			var eventStreamResponse = await this._service.CreateEventStreamAsync(eventStreamRequest);
 

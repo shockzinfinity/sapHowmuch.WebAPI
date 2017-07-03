@@ -22,5 +22,11 @@ namespace sapHowmuch.Api.Repositories
 		public virtual DbSet<OITM> OITMs { get; set; }
 		public virtual DbSet<OPRC> OPRCs { get; set; }
 		public virtual DbSet<OUDP> OUDPs { get; set; }
+		public virtual DbSet<ODIM> ODIMs { get; set; }
+		public virtual DbSet<BTF1> BTF1s { get; set; }
+		public virtual DbSet<JDT1> JDT1s { get; set; }
+		public virtual DbSet<OBTD> OBTDs { get; set; }
+		public virtual DbSet<OBTF> OBTFs { get; set; }
+		public virtual DbSet<OJDT> OJDTs { get; set; }
 	}
 }

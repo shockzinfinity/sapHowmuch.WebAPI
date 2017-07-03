@@ -3,11 +3,11 @@ using sapHowmuch.Api.Infrastructure.Models;
 
 namespace sapHowmuch.Api.Repositories.SapEntities.Profiles
 {
-	public class OPRCToSapBudgetCenterEntityMapperProfile : Profile
+	public class OPRCToSapBudgetDepartmentEntityMapperProfile : Profile
 	{
-		public OPRCToSapBudgetCenterEntityMapperProfile()
+		public OPRCToSapBudgetDepartmentEntityMapperProfile()
 		{
-			CreateMap<OPRC, SapBudgetCenterEntity>()
+			CreateMap<OPRC, SapBudgetDepartmentEntity>()
 				.ForMember(dest => dest.PrcCode, opt => opt.MapFrom(src => src.PrcCode))
 				.ForMember(dest => dest.PrcName, opt => opt.MapFrom(src => src.PrcName));
 		}

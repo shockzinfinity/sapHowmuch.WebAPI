@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
-using sapHowmuch.Api.Infrastructure.Events;
+using sapHowmuch.Api.Business.Events;
 using sapHowmuch.Api.Infrastructure.Models;
 
-namespace sapHowmuch.Api.Infrastructure.EventHandlers.Profiles
+namespace sapHowmuch.Api.Business.EventHandlers.Profiles
 {
-	public class EmployeeInfoCreatedEventToEventStreamMapperProfile : Profile
+	public class CountryCreatedEventToEventStreamMapperProfile : Profile
 	{
-		public EmployeeInfoCreatedEventToEventStreamMapperProfile()
+		public CountryCreatedEventToEventStreamMapperProfile()
 		{
-			CreateMap<EmployeeInfoCreatedEvent, EventStream>()
+			CreateMap<CountryCreatedEvent, EventStream>()
 				.ForMember(dest => dest.StreamId, opt => opt.MapFrom(src => src.EventStream))
 				.ForMember(dest => dest.EventName, opt => opt.MapFrom(src => src.Name))
 				.ForMember(dest => dest.EventType, opt => opt.MapFrom(src => src.GetType().FullName))

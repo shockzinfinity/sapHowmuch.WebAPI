@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
-using sapHowmuch.Api.Infrastructure.Events;
+using sapHowmuch.Api.Business.Events;
+using sapHowmuch.Api.Business.Models.Requests;
 using sapHowmuch.Api.Infrastructure.Models.Requests;
+using sapHowmuch.Api.Infrastructure.RequestHandlers;
 
-namespace sapHowmuch.Api.Infrastructure.RequestHandlers
+namespace sapHowmuch.Api.Business.RequestHandlers
 {
 	/// <summary>
 	/// This represents the request handler entity for employee info create.
