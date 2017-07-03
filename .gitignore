@@ -3,6 +3,12 @@
 # or wget:
 # wget --no-check-certificate http://gist.githubusercontent.com/kmorcinek/2710267/raw/.gitignore
 
+# ConnectionStrings
+connectionStrings.config
+
+# AppSettings
+appSettings.config
+
 # User-specific files
 *.suo
 *.user
