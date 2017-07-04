@@ -1,13 +1,15 @@
 ﻿using SAPbobsCOM;
+using sapHowmuch.Api.Common.Helpers;
 using System;
 using System.Configuration;
 
 namespace sapHowmuch.Api.Business
 {
-	public class SapCompany
+	public sealed partial class SapCompany
 	{
 		private static Company _company;
 		public static Company DICompany { get { return _company; } }
+		public static bool IsDiConnected => _company != null && _company.Connected;
 
 		public SapCompany()
 		{
@@ -56,6 +58,7 @@ namespace sapHowmuch.Api.Business
 			}
 			catch (Exception ex)
 			{
+				sapHowmuchLogger.Error($"SAP Business One DI company connection error: {ex.Message}");
 				throw ex;
 			}
 
@@ -65,8 +68,11 @@ namespace sapHowmuch.Api.Business
 				string errorString;
 				_company.GetLastError(out errorCode, out errorString);
 
-				throw new ApplicationException(string.Format("Error Code: {0}\nError Message: {1}", errorCode, errorString));
+				sapHowmuchLogger.Error($"Company connection failed: ErrorCode: {errorCode}, ErrorMessage: {errorString}");
+				throw new ApplicationException($"Error Code: {errorCode}{Environment.NewLine}Error Message: {errorString}");
 			}
+
+			sapHowmuchLogger.Info($"SAP Business One Company connected: '{server}', '{companyDb}', '{companyUsername}'");
 		}
 	}
 }

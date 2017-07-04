@@ -99,6 +99,7 @@
     <Compile Include="Extensions\TaskExtensions.cs" />
     <Compile Include="Extensions\ValidationExtensions.cs" />
     <Compile Include="Extensions\VariousTypeExtensions.cs" />
+    <Compile Include="Helpers\sapHowmuchLogger.cs" />
     <Compile Include="Interfaces\IBaseRepository.cs" />
     <Compile Include="Interfaces\IComponent.cs" />
     <Compile Include="Interfaces\IDbContextFactory.cs" />
