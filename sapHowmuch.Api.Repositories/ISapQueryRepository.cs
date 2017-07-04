@@ -140,7 +140,7 @@ namespace sapHowmuch.Api.Repositories
 		/// 거래처 (Business Partner) 리스트
 		/// </summary>
 		/// <returns></returns>
-		Task<IEnumerable<SapBusinessPartnerEntity>> GetBuisnessPartners();
+		Task<IEnumerable<SapBusinessPartnerEntity>> GetBusinessPartners();
 
 		/// <summary>
 		/// 거래처 (Business Partner)

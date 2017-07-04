@@ -193,7 +193,7 @@ namespace sapHowmuch.Api.Repositories
 
 		#region Business Partner
 
-		public virtual async Task<IEnumerable<SapBusinessPartnerEntity>> GetBuisnessPartners()
+		public virtual async Task<IEnumerable<SapBusinessPartnerEntity>> GetBusinessPartners()
 		{
 			var query = await GetAsync<OCRD>();
 
