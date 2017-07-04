@@ -1,4 +1,5 @@
 ﻿using NLog;
+using System;
 
 namespace sapHowmuch.Api.Common.Helpers
 {
@@ -53,6 +54,18 @@ namespace sapHowmuch.Api.Common.Helpers
 			if (!_classLogger.IsErrorEnabled) return;
 
 			_classLogger.Error(message);
+		}
+
+		/// <summary>
+		/// This method writes the error to trace file
+		/// </summary>
+		/// <param name="ex"></param>
+		/// <param name="message"></param>
+		public static void Error(Exception ex, string message)
+		{
+			if (!_classLogger.IsErrorEnabled) return;
+
+			_classLogger.Error(ex, message);
 		}
 
 		/// <summary>
