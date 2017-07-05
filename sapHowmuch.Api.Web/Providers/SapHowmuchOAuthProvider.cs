@@ -44,7 +44,8 @@ namespace sapHowmuch.Api.Web.Providers
 				return Task.FromResult<object>(null);
 			}
 
-			if (client.ApplicationType == ApplicationType.NativeConfidential) // Javascript client 가 아닐 경우, client secret 체크
+			// Javascript client 가 아닐 경우, client secret 체크
+			if (client.ApplicationType == ApplicationType.NativeConfidential)
 			{
 				if (string.IsNullOrWhiteSpace(clientSecret))
 				{
@@ -55,6 +56,7 @@ namespace sapHowmuch.Api.Web.Providers
 				else
 				{
 					// NOTE: 암호화된 상태로 넘기도록 요청할 경우 이 부분의 로직을 변경
+					// https 가 아니면 중간에 client secret 에 대한 하이잭이 가능
 					if (clientSecret != client.Secret)
 					{
 						context.SetError("invalid_clientId", "Client secret is invalid.");

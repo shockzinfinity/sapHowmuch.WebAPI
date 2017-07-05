@@ -8,6 +8,7 @@ namespace sapHowmuch.Api.Web.Controllers
 	/// <summary>
 	/// 비즈니스파트너 컨트롤러
 	/// </summary>
+	[Authorize]
 	[RoutePrefix("api/bp")]
 	public class BusinessPartnerController : BaseApiController
 	{

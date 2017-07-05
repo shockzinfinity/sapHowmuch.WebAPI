@@ -14,6 +14,7 @@ namespace sapHowmuch.Api.Web.Controllers
 	/// <summary>
 	/// 국가 컨트롤러
 	/// </summary>
+	[Authorize]
 	[LoggingFilter]
 	[RoutePrefix("api/country")]
 	public class CountryController : BaseApiController

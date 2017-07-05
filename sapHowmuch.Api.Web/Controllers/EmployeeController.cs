@@ -14,6 +14,7 @@ namespace sapHowmuch.Api.Web.Controllers
 	/// <summary>
 	/// 사원 컨트롤러
 	/// </summary>
+	[Authorize]
 	[LoggingFilter]
 	[RoutePrefix("api/employee")]
 	public class EmployeeController : BaseApiController
