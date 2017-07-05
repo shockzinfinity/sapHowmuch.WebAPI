@@ -7,7 +7,7 @@ namespace sapHowmuch.Api.Web.Infrastructure
 {
 	public class SapHowmuchUsernameValidator : UserValidator<ApplicationUser>
 	{
-		private List<string> _allowedEmailDomains = new List<string> { "naver.com", "gmail.com", "nate.com", "iquest.co.kr", "hotmail.com" };
+		private List<string> _allowedEmailDomains = new List<string> { "naver.com", "gmail.com", "nate.com", "iquest.co.kr", "hotmail.com", "emaxit.co.kr" };
 
 		public SapHowmuchUsernameValidator(UserManager<ApplicationUser, string> manager) : base(manager)
 		{

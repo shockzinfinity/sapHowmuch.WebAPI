@@ -43,7 +43,7 @@ namespace sapHowmuch.Api.Web
 		/// <summary>
 		/// Gets allowed origin against this web api
 		/// </summary>
-		public static IEnumerable<Client> AcceptedClients;
+		//public static IEnumerable<Client> AcceptedClients;
 
 		/// <summary>
 		/// Configures the OWIN pipeline.
@@ -62,10 +62,10 @@ namespace sapHowmuch.Api.Web
 			appBuilder.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 			appBuilder.CreatePerOwinContext<RefreshTokenManager>(RefreshTokenManager.Create);
 
-			using (var db = new ApplicationDbContext())
-			{
-				AcceptedClients = db.Clients.ToList();
-			}
+			//using (var db = new ApplicationDbContext())
+			//{
+			//	AcceptedClients = db.Clients.ToList();
+			//}
 
 			ConfigureOAuth(appBuilder);
 

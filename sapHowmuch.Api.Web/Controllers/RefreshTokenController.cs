@@ -1,13 +1,14 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace sapHowmuch.Api.Web.Controllers
 {
 	/// <summary>
 	/// Refresh Token 컨트롤러
 	/// </summary>
-	//[Authorize(Roles = "SuperAdmin")]
-	//[ApiExplorerSettings(IgnoreApi = true)] // hide specific controller in swagger controller list
+	[ApiExplorerSettings(IgnoreApi = true)] // hide specific controller in swagger controller list
+	[Authorize(Roles = "SuperAdmin")]
 	[RoutePrefix("api/refreshtoken")]
 	public class RefreshTokenController : BaseApiController
 	{
@@ -27,7 +28,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		/// <param name="tokenId"></param>
 		/// <returns></returns>
 		[HttpDelete]
-		[Route("{tokenId}")]
+		[Route("")]
 		public async Task<IHttpActionResult> Delete(string tokenId)
 		{
 			var result = await this.AppRefreshTokenManager.RemoveRefreshToken(tokenId);

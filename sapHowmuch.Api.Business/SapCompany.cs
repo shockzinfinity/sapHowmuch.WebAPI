@@ -58,7 +58,7 @@ namespace sapHowmuch.Api.Business
 			}
 			catch (Exception ex)
 			{
-				sapHowmuchLogger.Error($"SAP Business One DI company connection error: {ex.Message}");
+				sapHowmuchLogger.Error(ex, $"SAP Business One DI company connection error: {ex.Message}");
 				throw ex;
 			}
 
