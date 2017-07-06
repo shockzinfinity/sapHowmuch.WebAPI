@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Infrastructure;
+using sapHowmuch.Api.Common.Extensions;
 using sapHowmuch.Api.Web.Infrastructure;
 using System;
 using System.Threading.Tasks;
@@ -22,14 +23,13 @@ namespace sapHowmuch.Api.Web.Providers
 				return;
 			}
 
-			var refreshTokenId = Guid.NewGuid().ToString("D");
+			var refreshTokenId = Guid.NewGuid().ToString("N");
 			var manager = context.OwinContext.Get<RefreshTokenManager>();
 			var lifeTime = context.OwinContext.Get<string>(Startup.ClientRefreshTokenLifeTimePropertyName);
 
 			var token = new RefreshToken
 			{
-				// NOTE: 해시화 하게 되면 추후 refresh token id 를 url query string 으로 전달하는데에 문제가 생긴다.
-				Id = refreshTokenId,
+				Id = refreshTokenId.GetHash(),
 				ClientId = clientId,
 				Subject = context.Ticket.Identity.Name,
 				IssuedUtc = DateTime.UtcNow,
@@ -65,9 +65,14 @@ namespace sapHowmuch.Api.Web.Providers
 
 		public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
 		{
+			// TODO: refresh token 요청을 받을 경우, 보안 이슈적인 측면을 좀 더 고려해야한다.
+			// 매직키가 될 가능성이 존재함.
+			// 여기서 클라이언트 시크릿 검증 ?
 			var allowedOrigin = context.OwinContext.Get<string>(Startup.ClientAllowedOriginPropertyName);
 			context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
-			string hashedTokenId = context.Token;
+
+			// TODO: deserializing
+			string hashedTokenId = context.Token.GetHash();
 
 			var refreshToken = await context.OwinContext.Get<RefreshTokenManager>().FindRefreshToken(hashedTokenId);
 

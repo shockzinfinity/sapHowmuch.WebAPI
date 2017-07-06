@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using sapHowmuch.Api.Common.Extensions;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -31,7 +32,9 @@ namespace sapHowmuch.Api.Web.Controllers
 		[Route("")]
 		public async Task<IHttpActionResult> Delete(string tokenId)
 		{
-			var result = await this.AppRefreshTokenManager.RemoveRefreshToken(tokenId);
+			var hashedTokenId = tokenId.GetHash();
+			//var result = await this.AppRefreshTokenManager.RemoveRefreshToken(tokenId);
+			var result = await this.AppRefreshTokenManager.RemoveRefreshToken(hashedTokenId);
 
 			if (result)
 			{
