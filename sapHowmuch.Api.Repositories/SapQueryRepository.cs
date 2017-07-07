@@ -245,6 +245,181 @@ namespace sapHowmuch.Api.Repositories
 
 		#endregion Dimension
 
+		#region Vat Group
+
+		public virtual async Task<IEnumerable<SapVatGroupEntity>> GetVatGroups()
+		{
+			var query = await GetAsync<OVTG>();
+
+			return await Task.FromResult(Mapper.Map<IEnumerable<OVTG>, IEnumerable<SapVatGroupEntity>>(query.AsEnumerable())).ConfigureAwait(false);
+		}
+
+		public virtual async Task<SapVatGroupEntity> GetVatGroupBy(string vatCode)
+		{
+			var query = await GetAsync<OVTG>(v => v.Code.Equals(vatCode));
+
+			return await Task.FromResult(Mapper.Map<OVTG, SapVatGroupEntity>(query.SingleOrDefault())).ConfigureAwait(false);
+		}
+
+		#endregion Vat Group
+
+		#region Journal Voucher
+
+		/// <summary>
+		/// 분개장 리스트
+		/// </summary>
+		/// <returns></returns>
+		public virtual async Task<IEnumerable<SapJournalVouchersListEntity>> GetJournalVouchersLists()
+		{
+			var query = await GetAsync<OBTD>();
+
+			return await Task.FromResult(Mapper.Map<IEnumerable<OBTD>, IEnumerable<SapJournalVouchersListEntity>>(query.AsEnumerable())).ConfigureAwait(false);
+		}
+
+		/// <summary>
+		/// 분개장
+		/// </summary>
+		/// <param name="batchNum"></param>
+		/// <returns></returns>
+		public virtual async Task<SapJournalVouchersListEntity> GetJournalVouchersListBy(int batchNum)
+		{
+			// TODO: 쿼리 성능 향상, 하위 라인에 대한 쿼리를 하나로 만들 필요가 있다.
+			var query = await GetAsync<OBTD>(b => b.BatchNum == batchNum);
+			var elementsQuery = await GetAsync<OBTF>(e => e.BatchNum == batchNum);
+
+			SapJournalVouchersListEntity entity = Mapper.Map<OBTD, SapJournalVouchersListEntity>(query.SingleOrDefault());
+
+			if (entity != null)
+			{
+				IEnumerable<SapJournalVoucherEntity> elements = Mapper.Map<IEnumerable<OBTF>, IEnumerable<SapJournalVoucherEntity>>(elementsQuery.AsEnumerable());
+				entity.Elements = elements.ToList();
+
+				if (entity.Elements.Count() > 0)
+				{
+					foreach (var element in entity.Elements)
+					{
+						var lineQuery = await GetAsync<BTF1>(l => l.TransId == element.TransId);
+						IEnumerable<SapJournalVoucherLineEntity> lines = Mapper.Map<IEnumerable<BTF1>, IEnumerable<SapJournalVoucherLineEntity>>(lineQuery.AsEnumerable());
+
+						element.Lines = lines.ToList();
+					}
+				}
+			}
+
+			return await Task.FromResult(entity).ConfigureAwait(false);
+		}
+
+		public virtual async Task<SapJournalVouchersListEntity> GetJournalVouchersListBy(Guid streamId)
+		{
+			#region for test 2017-07-07
+
+			// NOTE: streamId를 분개의 적요에 임시로 기록한 상태
+			var query = await GetAsync<OBTF>(j => j.Memo == streamId.ToString());
+
+			var listQuery = await GetAsync<OBTD>(l => l.BatchNum == query.FirstOrDefault().BatchNum);
+
+			return await Task.FromResult(Mapper.Map<OBTD, SapJournalVouchersListEntity>(listQuery.FirstOrDefault())).ConfigureAwait(false);
+
+			#endregion
+		}
+
+		/// <summary>
+		/// 분개장 요소 리스트
+		/// </summary>
+		/// <returns></returns>
+		public virtual async Task<IEnumerable<SapJournalVoucherEntity>> GetJournalVouchers()
+		{
+			var query = await GetAsync<OBTF>();
+
+			return await Task.FromResult(Mapper.Map<IEnumerable<OBTF>, IEnumerable<SapJournalVoucherEntity>>(query.AsEnumerable())).ConfigureAwait(false);
+		}
+
+		/// <summary>
+		/// 분개장 요소
+		/// </summary>
+		/// <param name="transId"></param>
+		/// <returns></returns>
+		public virtual async Task<SapJournalVoucherEntity> GetJournalVoucherBy(int transId)
+		{
+			// TODO: 쿼리 성능 향상, 하위 라인에 대한 쿼리를 하나로 만들 필요가 있다.
+			var query = await GetAsync<OBTF>(h => h.TransId == transId);
+			var lineQuery = await GetAsync<BTF1>(b => b.TransId == transId);
+
+			SapJournalVoucherEntity entity = Mapper.Map<OBTF, SapJournalVoucherEntity>(query.SingleOrDefault());
+
+			if (entity != null)
+			{
+				IEnumerable<SapJournalVoucherLineEntity> lines = Mapper.Map<IEnumerable<BTF1>, IEnumerable<SapJournalVoucherLineEntity>>(lineQuery.AsEnumerable());
+
+				entity.Lines = lines.ToList();
+			}
+
+			return await Task.FromResult(entity).ConfigureAwait(false);
+		}
+
+		/// <summary>
+		/// 분개장 요소 라인
+		/// </summary>
+		/// <returns></returns>
+		public virtual async Task<IEnumerable<SapJournalVoucherLineEntity>> GetJournalVoucherLines(int transId)
+		{
+			var query = await GetAsync<BTF1>(l => l.TransId == transId);
+
+			return await Task.FromResult(Mapper.Map<IEnumerable<BTF1>, IEnumerable<SapJournalVoucherLineEntity>>(query.AsEnumerable())).ConfigureAwait(false);
+		}
+
+		#endregion Journal Voucher
+
+		#region Journal Entry
+
+		/// <summary>
+		/// 분개 리스트
+		/// </summary>
+		/// <returns></returns>
+		public virtual async Task<IEnumerable<SapJournalEntryEntity>> GetJournalEntries()
+		{
+			var query = await GetAsync<OJDT>();
+
+			return await Task.FromResult(Mapper.Map<IEnumerable<OJDT>, IEnumerable<SapJournalEntryEntity>>(query.AsEnumerable())).ConfigureAwait(false);
+		}
+
+		/// <summary>
+		/// 분개
+		/// </summary>
+		/// <param name="transId"></param>
+		/// <returns></returns>
+		public virtual async Task<SapJournalEntryEntity> GetJournalEntryBy(int transId)
+		{
+			// TODO: 쿼리 성능 향상, 하위 라인에 대한 쿼리를 하나로 만들 필요가 있다.
+			var query = await GetAsync<OJDT>(h => h.TransId == transId);
+			var lineQuery = await GetAsync<JDT1>(l => l.TransId == transId);
+
+			SapJournalEntryEntity entity = Mapper.Map<OJDT, SapJournalEntryEntity>(query.SingleOrDefault());
+
+			if (entity != null)
+			{
+				IEnumerable<SapJournalEntryLineEntity> lines = Mapper.Map<IEnumerable<JDT1>, IEnumerable<SapJournalEntryLineEntity>>(lineQuery.AsEnumerable());
+				entity.Lines = lines.ToList();
+			}
+
+			return await Task.FromResult(entity).ConfigureAwait(false);
+		}
+
+		/// <summary>
+		/// 분개 라인
+		/// </summary>
+		/// <returns></returns>
+		public virtual async Task<IEnumerable<SapJournalEntryLineEntity>> GetJournalEntryLines(int transId)
+		{
+			var query = await GetAsync<JDT1>();
+
+			return await Task.FromResult(Mapper.Map<IEnumerable<JDT1>, IEnumerable<SapJournalEntryLineEntity>>(query.AsEnumerable())).ConfigureAwait(false);
+		}
+
+		#endregion Journal Entry
+
+		#region private methods
+
 		private async Task<IQueryable<TEntity>> GetAsync<TEntity>() where TEntity : class
 		{
 			return await Task.FromResult(this._context.Set<TEntity>()).ConfigureAwait(false);
@@ -254,5 +429,7 @@ namespace sapHowmuch.Api.Repositories
 		{
 			return await Task.FromResult(this._context.Set<TEntity>().Where(filter)).ConfigureAwait(false);
 		}
+
+		#endregion private methods
 	}
 }

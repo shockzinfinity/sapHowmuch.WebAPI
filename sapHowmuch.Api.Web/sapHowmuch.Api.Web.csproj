@@ -246,9 +246,11 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\JournalEntryController.cs" />
     <Compile Include="Controllers\ProtectedController.cs" />
     <Compile Include="Controllers\RefreshTokenController.cs" />
-    <Compile Include="Controllers\VoucherController.cs" />
+    <Compile Include="Controllers\VatGroupController.cs" />
+    <Compile Include="Controllers\JournalVoucherController.cs" />
     <Compile Include="Infrastructure\AbstractAudience.cs" />
     <Compile Include="Infrastructure\ApplicationDbContext.cs" />
     <Compile Include="Infrastructure\ApplicationRole.cs" />

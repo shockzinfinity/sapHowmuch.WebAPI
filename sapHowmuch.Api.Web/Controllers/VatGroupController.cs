@@ -7,20 +7,20 @@ using System.Web.Http;
 namespace sapHowmuch.Api.Web.Controllers
 {
 	/// <summary>
-	/// Item 컨트롤러
+	/// 세금 그룹 컨트롤러
 	/// </summary>
 	[Authorize]
 	[LoggingFilter]
-	[RoutePrefix("api/item")]
-	public class ItemController : BaseApiController
+	[RoutePrefix("api/vat")]
+	public class VatGroupController : BaseApiController
 	{
 		private readonly ISapQueryRepository _repository;
 
 		/// <summary>
-		/// Initialize a new instance of the <see cref="ItemController" /> class
+		/// Initialize a new instance of the <see cref="VatGroupController" /> class
 		/// </summary>
-		/// <param name="repository"><c>SqpQueryRepository</c> instance</param>
-		public ItemController(ISapQueryRepository repository)
+		/// <param name="repository"><c>SapQueryRepository</c> instance</param>
+		public VatGroupController(ISapQueryRepository repository)
 		{
 			if (repository == null)
 			{
@@ -31,28 +31,28 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Get all Items
+		/// Get all vat group code
 		/// </summary>
 		/// <returns></returns>
 		[Route("")]
 		public IHttpActionResult Get()
 		{
-			return Ok(_repository.GetItems().Result);
+			return Ok(_repository.GetVatGroups().Result);
 		}
 
 		/// <summary>
-		/// Get a specific item
+		/// Get a specific vat group
 		/// </summary>
-		/// <param name="itemCode"></param>
+		/// <param name="code"></param>
 		/// <returns></returns>
-		[Route("{itemCode}")]
-		public async Task<IHttpActionResult> Get(string itemCode)
+		[Route("{code}")]
+		public async Task<IHttpActionResult> Get(string code)
 		{
-			var item = await _repository.GetItemBy(itemCode);
+			var vat = await _repository.GetVatGroupBy(code);
 
-			if (item != null)
+			if (vat != null)
 			{
-				return Ok(item);
+				return Ok(vat);
 			}
 
 			return NotFound();

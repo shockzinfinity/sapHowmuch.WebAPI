@@ -48,6 +48,21 @@ namespace sapHowmuch.Api.Business
 				.As<IEventHandler>()
 				.PropertiesAutowired()
 				.InstancePerLifetimeScope();
+
+			registerComponent.Builder.RegisterType<JournalVoucherCreateRequestBuilder>()
+				.As<IRequestBuilder>()
+				.PropertiesAutowired()
+				.InstancePerLifetimeScope();
+
+			registerComponent.Builder.RegisterType<JournalVoucherCreateRequestHandler>()
+				.As<IRequestHandler>()
+				.PropertiesAutowired()
+				.InstancePerLifetimeScope();
+
+			registerComponent.Builder.RegisterType<JournalVoucherCreatedEventHandler>()
+				.As<IEventHandler>()
+				.PropertiesAutowired()
+				.InstancePerLifetimeScope();
 		}
 	}
 }

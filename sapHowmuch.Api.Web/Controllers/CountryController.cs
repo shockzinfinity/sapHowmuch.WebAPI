@@ -78,8 +78,13 @@ namespace sapHowmuch.Api.Web.Controllers
 			return NotFound();
 		}
 
+		/// <summary>
+		/// Add country
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
 		[HttpPost]
-		[Route("add-country")]
+		[Route("add")]
 		public async Task<CountryCreateResponse> AddCountry(CountryCreateRequest request)
 		{
 			var eventStreamRequest = new EventStreamCreateRequest() { StreamId = Guid.NewGuid() };

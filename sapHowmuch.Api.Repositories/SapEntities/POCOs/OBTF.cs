@@ -291,6 +291,6 @@ namespace sapHowmuch.Api.Repositories
 		public string RepSection { get; set; }
 
 		[StringLength(1)]
-		public string InclTaxRep { get; set; }
+		public string ExclTaxRep { get; set; }
 	}
 }
