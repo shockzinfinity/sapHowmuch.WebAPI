@@ -68,6 +68,7 @@ namespace sapHowmuch.Api.Business.EventHandlers
 
 							//voucher.JournalEntries.Memo = entry.Memo;
 							// NOTE: 임시 테스트를 위해 적요에 해당 steamId를 삽입 후 추후 조회에서 처리
+							// TODO: 변경필요
 							voucher.JournalEntries.Memo = @event.EventStream.ToString();
 
 							#endregion
@@ -112,8 +113,6 @@ namespace sapHowmuch.Api.Business.EventHandlers
 					throw new Exception($"SBO Error Code: {SapCompany.DICompany.GetLastErrorCode()}, Error Description: {SapCompany.DICompany.GetLastErrorDescription()}");
 				}
 
-				// TODO: voucher 추가 후, getxml 한 다음, 코드 값을 리턴 받는 로직 추가
-				//voucher.SaveToXMLHierarchy($"{Environment.CurrentDirectory}\\voucherResult.xml");
 				// NOTE: xml 파일로 저장하더라도, 실제적으로 해당 분개장 번호는 리턴되지 않음
 				// streamId 를 특정 컬럼에 저장한다음
 				// 추후 그 streamId로 조회해서 키값을 얻어와야 할 것으로 보임

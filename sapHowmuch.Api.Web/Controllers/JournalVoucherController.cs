@@ -1,10 +1,12 @@
 ﻿using sapHowmuch.Api.Business.Models.Requests;
 using sapHowmuch.Api.Business.Models.Responses;
 using sapHowmuch.Api.Infrastructure.Models.Requests;
+using sapHowmuch.Api.Infrastructure.Models.Responses.Data;
 using sapHowmuch.Api.Repositories;
 using sapHowmuch.Api.Services;
 using sapHowmuch.Api.Web.Infrastructure;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -80,13 +82,27 @@ namespace sapHowmuch.Api.Web.Controllers
 		[Route("add")]
 		public async Task<JournalVoucherCreateResponse> AddVoucher(JournalVoucherCreateRequest request)
 		{
+			JournalVoucherCreateResponse response;
+			
 			// TODO: validation logic (라인 체크 및 기타 등등) - 일단 수동으로 체크
+
+			if (request == null || request.Entries == null || request.Entries.Count() < 1)
+			{
+				response = new JournalVoucherCreateResponse
+				{
+					Error = new ResponseError
+					{
+						Message = "Bad request"
+					}
+				};
+
+				return await Task.FromResult(response);
+			}
 
 			// NOTE: 이벤트 스트림 생성
 			var eventStreamRequest = new EventStreamCreateRequest() { StreamId = Guid.NewGuid() };
 			var eventStreamResponse = await this._service.CreateEventStreamAsync(eventStreamRequest);
 
-			JournalVoucherCreateResponse response;
 
 			if (eventStreamResponse.Error != null)
 			{
