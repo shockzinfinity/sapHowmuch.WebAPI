@@ -78,34 +78,35 @@ namespace sapHowmuch.Api.Web.Controllers
 			return NotFound();
 		}
 
-		/// <summary>
-		/// Add country
-		/// </summary>
-		/// <param name="request"></param>
-		/// <returns></returns>
-		[HttpPost]
-		[Route("add")]
-		public async Task<CountryCreateResponse> AddCountry(CountryCreateRequest request)
-		{
-			var eventStreamRequest = new EventStreamCreateRequest() { StreamId = Guid.NewGuid() };
-			var eventStreamResponse = await this._service.CreateEventStreamAsync(eventStreamRequest);
+		///// 2017-07-11 국가 코드 추가는 사용하지 않음
+		///// <summary>
+		///// Add country
+		///// </summary>
+		///// <param name="request"></param>
+		///// <returns></returns>
+		//[HttpPost]
+		//[Route("add")]
+		//public async Task<CountryCreateResponse> AddCountry(CountryCreateRequest request)
+		//{
+		//	var eventStreamRequest = new EventStreamCreateRequest() { StreamId = Guid.NewGuid() };
+		//	var eventStreamResponse = await this._service.CreateEventStreamAsync(eventStreamRequest);
 
-			CountryCreateResponse response;
+		//	CountryCreateResponse response;
 
-			if (eventStreamResponse.Error != null)
-			{
-				response = new CountryCreateResponse()
-				{
-					Error = eventStreamResponse.Error
-				};
+		//	if (eventStreamResponse.Error != null)
+		//	{
+		//		response = new CountryCreateResponse()
+		//		{
+		//			Error = eventStreamResponse.Error
+		//		};
 
-				return await Task.FromResult(response);
-			}
+		//		return await Task.FromResult(response);
+		//	}
 
-			request.StreamId = eventStreamResponse.Data.StreamId;
-			response = await this._service.CreateCountryAsync(request);
+		//	request.StreamId = eventStreamResponse.Data.StreamId;
+		//	response = await this._service.CreateCountryAsync(request);
 
-			return await Task.FromResult(response);
-		}
+		//	return await Task.FromResult(response);
+		//}
 	}
 }
