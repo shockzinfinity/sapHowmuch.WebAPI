@@ -14,6 +14,7 @@ namespace sapHowmuch.Api.Web.Controllers
 	/// <summary>
 	/// 사원 컨트롤러
 	/// </summary>
+	[Authorize]
 	[LoggingFilter]
 	[RoutePrefix("api/employee")]
 	public class EmployeeController : BaseApiController
@@ -102,7 +103,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		/// <param name="request">The <see cref="EmployeeInfoCreateRequest" /> instance.</param>
 		/// <returns>Returns the <see cref="EmployeeInfoCreateResponse" /> instance. </returns>
 		[HttpPost]
-		[Route("add-employee")]
+		[Route("add")]
 		public async Task<EmployeeInfoCreateResponse> AddEmployee(EmployeeInfoCreateRequest request)
 		{
 			// NOTE: default flow for api logic

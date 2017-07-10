@@ -28,5 +28,6 @@ namespace sapHowmuch.Api.Repositories
 		public virtual DbSet<OBTD> OBTDs { get; set; }
 		public virtual DbSet<OBTF> OBTFs { get; set; }
 		public virtual DbSet<OJDT> OJDTs { get; set; }
+		public virtual DbSet<OVTG> OVTGs { get; set; }
 	}
 }

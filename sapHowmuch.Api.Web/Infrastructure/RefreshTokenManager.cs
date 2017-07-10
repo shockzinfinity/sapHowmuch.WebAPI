@@ -43,15 +43,13 @@ namespace sapHowmuch.Api.Web.Infrastructure
 
 		public async Task<Client> AddClientAsync(ClientBindingModel clientModel)
 		{
-			//var clientId = Guid.NewGuid().ToString("n");
-			var clientId = Guid.NewGuid().ToString();
 			var key = new byte[32];
 			RNGCryptoServiceProvider.Create().GetBytes(key);
 			var base64Secret = TextEncodings.Base64Url.Encode(key);
 
 			var client = new Client
 			{
-				Id = Guid.NewGuid().ToString(),
+				Id = Guid.NewGuid().ToString("D"),
 				Active = true,
 				AllowedOrigin = (string.IsNullOrWhiteSpace(clientModel.AllowedOrigin)) ? "*" : clientModel.AllowedOrigin,
 				ApplicationType = clientModel.ApplicationType,

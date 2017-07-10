@@ -140,7 +140,7 @@ namespace sapHowmuch.Api.Repositories
 		/// 거래처 (Business Partner) 리스트
 		/// </summary>
 		/// <returns></returns>
-		Task<IEnumerable<SapBusinessPartnerEntity>> GetBuisnessPartners();
+		Task<IEnumerable<SapBusinessPartnerEntity>> GetBusinessPartners();
 
 		/// <summary>
 		/// 거래처 (Business Partner)
@@ -184,5 +184,87 @@ namespace sapHowmuch.Api.Repositories
 		Task<SapDimensionEntity> GetDimensionBy(int code);
 
 		#endregion Dimension
+
+		#region Vat Group
+		/// <summary>
+		/// 세금그룹 리스트
+		/// </summary>
+		/// <returns></returns>
+		Task<IEnumerable<SapVatGroupEntity>> GetVatGroups();
+
+		/// <summary>
+		/// 세금그룹
+		/// </summary>
+		/// <param name="vatCode"></param>
+		/// <returns></returns>
+		Task<SapVatGroupEntity> GetVatGroupBy(string vatCode);
+
+		#endregion
+
+		#region Journal Voucher
+
+		/// <summary>
+		/// 분개장 리스트
+		/// </summary>
+		/// <returns></returns>
+		Task<IEnumerable<SapJournalVouchersListEntity>> GetJournalVouchersLists();
+
+		/// <summary>
+		/// 분개장
+		/// </summary>
+		/// <param name="batchNum"></param>
+		/// <returns></returns>
+		Task<SapJournalVouchersListEntity> GetJournalVouchersListBy(int batchNum);
+
+		/// <summary>
+		/// 분개장 entity
+		/// </summary>
+		/// <param name="streamId"></param>
+		/// <returns></returns>
+		Task<SapJournalVouchersListEntity> GetJournalVouchersListBy(Guid streamId);
+
+		/// <summary>
+		/// 분개장 요소 리스트
+		/// </summary>
+		/// <returns></returns>
+		Task<IEnumerable<SapJournalVoucherEntity>> GetJournalVouchers();
+
+		/// <summary>
+		/// 분개장 요소
+		/// </summary>
+		/// <param name="transId"></param>
+		/// <returns></returns>
+		Task<SapJournalVoucherEntity> GetJournalVoucherBy(int transId);
+
+		/// <summary>
+		/// 분개장 요소 라인
+		/// </summary>
+		/// <returns></returns>
+		Task<IEnumerable<SapJournalVoucherLineEntity>> GetJournalVoucherLines(int transId);
+
+		#endregion
+
+		#region Journal Entry
+
+		/// <summary>
+		/// 분개 리스트
+		/// </summary>
+		/// <returns></returns>
+		Task<IEnumerable<SapJournalEntryEntity>> GetJournalEntries();
+
+		/// <summary>
+		/// 분개
+		/// </summary>
+		/// <param name="transId"></param>
+		/// <returns></returns>
+		Task<SapJournalEntryEntity> GetJournalEntryBy(int transId);
+
+		/// <summary>
+		/// 분개 라인
+		/// </summary>
+		/// <returns></returns>
+		Task<IEnumerable<SapJournalEntryLineEntity>> GetJournalEntryLines(int transId);
+
+		#endregion
 	}
 }

@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using NLog;
+using sapHowmuch.Api.Common.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +14,13 @@ namespace sapHowmuch.Api.Web.Infrastructure
 	/// </summary>
 	public class NLogger : ITraceWriter
 	{
-		private static readonly Logger _classLogger = LogManager.GetCurrentClassLogger();
-
 		private static readonly Lazy<Dictionary<TraceLevel, Action<string>>> _loggingMap = new Lazy<Dictionary<TraceLevel, Action<string>>>(() => new Dictionary<TraceLevel, Action<string>>
 		{
-			{ TraceLevel.Info, _classLogger.Info },
-			{ TraceLevel.Debug, _classLogger.Debug },
-			{ TraceLevel.Error, _classLogger.Error },
-			{ TraceLevel.Fatal, _classLogger.Fatal },
-			{ TraceLevel.Warn, _classLogger.Warn }
+			{ TraceLevel.Info, sapHowmuchLogger.Info },
+			{ TraceLevel.Debug, sapHowmuchLogger.Debug },
+			{ TraceLevel.Error, sapHowmuchLogger.Error },
+			{ TraceLevel.Fatal, sapHowmuchLogger.Fatal },
+			{ TraceLevel.Warn, sapHowmuchLogger.Warn }
 		});
 
 		private Dictionary<TraceLevel, Action<string>> _logger { get { return _loggingMap.Value; } }

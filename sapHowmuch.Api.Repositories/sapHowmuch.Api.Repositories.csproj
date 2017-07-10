@@ -108,7 +108,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ApiDbContext.cs" />
     <Compile Include="SapDbContext.cs" />
+    <Compile Include="SapEntities\POCOs\OVTG.cs" />
+    <Compile Include="SapEntities\Profiles\JDT1ToSapJournalEntryLineEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\BTF1ToSapJournalVoucherLineEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OACTToSapCoaEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\OBTDToSapJournalVouchersListEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\OJDTToSapJournalEntryEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\OBTFToSapJournalVoucherEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OCRDToSapBusinessPartnerEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OCRYToSapCountryEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\ODIMToSapDimensionEntityMapperProfile.cs" />
@@ -119,6 +125,7 @@
     <Compile Include="SapEntities\Profiles\OPRCToSapBudgetDepartmentEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OPRCToSapCostCenterEntityMapperProfile.cs" />
     <Compile Include="SapEntities\Profiles\OUDPToSapDepartmentEntityMapperProfile.cs" />
+    <Compile Include="SapEntities\Profiles\OVTGToSapVatGroupEntityMapperProfile.cs" />
     <Compile Include="SapQueryRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="UnitOfWorkManager.cs" />

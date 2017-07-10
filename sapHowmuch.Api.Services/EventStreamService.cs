@@ -209,6 +209,50 @@ namespace sapHowmuch.Api.Services
 			return await Task.FromResult(response);
 		}
 
+		public async Task<JournalVoucherCreateResponse> CreateJournalVoucherAsync(JournalVoucherCreateRequest request)
+		{
+			await this._builder.BuildAsync(request);
+
+			var handler = this._handlers.SingleOrDefault(p => p.CanHandle(request));
+
+			if (handler == null)
+			{
+				return await Task.FromResult(default(JournalVoucherCreateResponse));
+			}
+
+			var ev = handler.CreateEvent(request) as JournalVoucherCreatedEvent;
+			PopulateBaseProperties(ev);
+
+			JournalVoucherCreateResponse response;
+
+			try
+			{
+				await this._processor.ProcessEventsAsync(new[] { ev });
+
+				response = new JournalVoucherCreateResponse()
+				{
+					Data = new JournalVoucherCreateResponseData()
+					{
+						Entries = ev.Entries,
+						VoucherListNumber = ev.VoucherListNumber
+					}
+				};
+			}
+			catch (Exception ex)
+			{
+				response = new JournalVoucherCreateResponse()
+				{
+					Error = new ResponseError()
+					{
+						Message = ex.Message,
+						StackTrace = ex.StackTrace
+					}
+				};
+			}
+
+			return await Task.FromResult(response);
+		}
+
 		private bool _disposed;
 
 		/// <summary>
