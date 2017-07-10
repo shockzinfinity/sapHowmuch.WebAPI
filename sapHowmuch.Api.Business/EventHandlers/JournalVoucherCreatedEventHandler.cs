@@ -68,7 +68,7 @@ namespace sapHowmuch.Api.Business.EventHandlers
 
 							//voucher.JournalEntries.Memo = entry.Memo;
 							// NOTE: 임시 테스트를 위해 적요에 해당 steamId를 삽입 후 추후 조회에서 처리
-							// TODO: 변경필요
+							// TODO: 추후 유저필드 추가 후에 해당 필드로 변경필요
 							voucher.JournalEntries.Memo = @event.EventStream.ToString();
 
 							#endregion

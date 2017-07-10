@@ -311,16 +311,13 @@ namespace sapHowmuch.Api.Repositories
 
 		public virtual async Task<SapJournalVouchersListEntity> GetJournalVouchersListBy(Guid streamId)
 		{
-			#region for test 2017-07-07
-
 			// NOTE: streamId를 분개의 적요에 임시로 기록한 상태
+			// TODO: 유저필드 추가 후 해당 필드 기준으로 검색 변경
 			var query = await GetAsync<OBTF>(j => j.Memo == streamId.ToString());
 
 			var listQuery = await GetAsync<OBTD>(l => l.BatchNum == query.FirstOrDefault().BatchNum);
 
 			return await Task.FromResult(Mapper.Map<OBTD, SapJournalVouchersListEntity>(listQuery.FirstOrDefault())).ConfigureAwait(false);
-
-			#endregion
 		}
 
 		/// <summary>
