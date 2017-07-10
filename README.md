@@ -11,7 +11,8 @@ To lookup WebAPI specification [http://api_address:port/swagger](http://api_addr
 ## Notes
 
 * For security reasons, the 'appSettings.config' file is not included in this repository.
-* Add 'appSettings.config' file to your project and set it to 'copy if newer version'.
+* Add 'appSettings.config' file to your project(sapHowmuch.Api.Web) and set it to 'copy if newer version'.
+* Likewise, add 'connectionStrings.config' file too.
 
 ## Prerequisites
 
