@@ -181,6 +181,10 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Thinktecture.IdentityModel.Core, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Thinktecture.IdentityModel.Core.1.4.0\lib\net45\Thinktecture.IdentityModel.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
       <Private>True</Private>
@@ -236,12 +240,18 @@
     <Compile Include="Controllers\AudienceController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BaseMvcController.cs" />
+    <Compile Include="Controllers\BusinessPartnerController.cs" />
     <Compile Include="Controllers\CoaController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\JournalEntryController.cs" />
     <Compile Include="Controllers\ProtectedController.cs" />
     <Compile Include="Controllers\RefreshTokenController.cs" />
+    <Compile Include="Controllers\VatGroupController.cs" />
+    <Compile Include="Controllers\JournalVoucherController.cs" />
+    <Compile Include="Infrastructure\AbstractAudience.cs" />
     <Compile Include="Infrastructure\ApplicationDbContext.cs" />
     <Compile Include="Infrastructure\ApplicationRole.cs" />
     <Compile Include="Infrastructure\ApplicationRoleManager.cs" />
@@ -256,7 +266,9 @@
     <Compile Include="Infrastructure\RefreshTokenManager.cs" />
     <Compile Include="Infrastructure\SapHowmuchPasswordValidator.cs" />
     <Compile Include="Infrastructure\SapHowmuchUsernameValidator.cs" />
+    <Compile Include="Infrastructure\SecurityTokensTokens.cs" />
     <Compile Include="Infrastructure\UserProfile.cs" />
+    <Compile Include="Infrastructure\ValidIssuers.cs" />
     <Compile Include="Migrations\201703240828176_initial.cs" />
     <Compile Include="Migrations\201703240828176_initial.Designer.cs">
       <DependentUpon>201703240828176_initial.cs</DependentUpon>
@@ -274,9 +286,17 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="connectionStrings.config" />
-    <Content Include="appSettings.config" />
-    <None Include="Properties\PublishProfiles\229 server %289091%29.pubxml" />
+    <Content Include="connectionStrings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appSettings.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\PublishProfiles\sapdev1.semubot.com%289091%29.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

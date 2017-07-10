@@ -8,6 +8,7 @@ namespace sapHowmuch.Api.Web.Controllers
 	/// <summary>
 	/// 계정과목 컨트롤러
 	/// </summary>
+	[Authorize]
 	[RoutePrefix("api/coa")]
 	public class CoaController : BaseApiController
 	{

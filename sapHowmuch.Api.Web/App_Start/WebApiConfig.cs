@@ -4,6 +4,7 @@ using Elmah.Contrib.WebApi;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Owin;
+using sapHowmuch.Api.Web.Infrastructure;
 using System.Linq;
 using System.Reflection;
 using System.Web.Http;

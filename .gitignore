@@ -9,6 +9,9 @@ connectionStrings.config
 # AppSettings
 appSettings.config
 
+# NLog config
+NLog.config
+
 # User-specific files
 *.suo
 *.user
