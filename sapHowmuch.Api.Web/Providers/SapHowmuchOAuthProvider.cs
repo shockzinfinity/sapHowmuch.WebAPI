@@ -30,6 +30,7 @@ namespace sapHowmuch.Api.Web.Providers
 
 			if (string.IsNullOrWhiteSpace(context.ClientId))
 			{
+				context.Rejected();
 				context.SetError("invalid_clientId", "ClientId should be sent.");
 
 				return Task.FromResult<object>(null);
@@ -39,15 +40,18 @@ namespace sapHowmuch.Api.Web.Providers
 
 			if (client == null)
 			{
+				context.Rejected();
 				context.SetError("invalid_clientId", $"Client '{context.ClientId}' is not registered in the system.");
 
 				return Task.FromResult<object>(null);
 			}
 
-			if (client.ApplicationType == ApplicationType.NativeConfidential) // Javascript client 가 아닐 경우, client secret 체크
+			// Javascript client 가 아닐 경우, client secret 체크
+			if (client.ApplicationType == ApplicationType.NativeConfidential)
 			{
 				if (string.IsNullOrWhiteSpace(clientSecret))
 				{
+					context.Rejected();
 					context.SetError("invalid_clientId", "Client secret should be sent.");
 
 					return Task.FromResult<object>(null);
@@ -55,8 +59,10 @@ namespace sapHowmuch.Api.Web.Providers
 				else
 				{
 					// NOTE: 암호화된 상태로 넘기도록 요청할 경우 이 부분의 로직을 변경
+					// https 가 아니면 중간에 client secret 에 대한 하이잭이 가능
 					if (clientSecret != client.Secret)
 					{
+						context.Rejected();
 						context.SetError("invalid_clientId", "Client secret is invalid.");
 
 						return Task.FromResult<object>(null);
@@ -66,6 +72,7 @@ namespace sapHowmuch.Api.Web.Providers
 
 			if (!client.Active)
 			{
+				context.Rejected();
 				context.SetError("invalid_clientId", "Client is inactive.");
 
 				return Task.FromResult<object>(null);
@@ -95,6 +102,7 @@ namespace sapHowmuch.Api.Web.Providers
 
 			if (user == null)
 			{
+				context.Rejected();
 				context.SetError("invalid_grant", "The username or password is incorrect.");
 
 				return;
@@ -102,13 +110,13 @@ namespace sapHowmuch.Api.Web.Providers
 
 			if (!user.EmailConfirmed)
 			{
+				context.Rejected();
 				context.SetError("invalid_grant", "User did not confirm email.");
 
 				return;
 			}
 
 			// NOTE: user locking 정책 변경 시 로직 추가
-
 			ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");
 
 			// 확장클레임 추가 부분
@@ -127,11 +135,6 @@ namespace sapHowmuch.Api.Web.Providers
 			context.Validated(ticket);
 		}
 
-		//public override Task TokenEndpoint(OAuthTokenEndpointContext context)
-		//{
-		//	return base.TokenEndpoint(context);
-		//}
-
 		public override Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
 		{
 			// grant_type = refresh_token 체크
@@ -140,6 +143,7 @@ namespace sapHowmuch.Api.Web.Providers
 
 			if (originalClient != currentClient)
 			{
+				context.Rejected();
 				context.SetError("invalid_clientId", "Refresh token is issued to a different clientId.");
 
 				return Task.FromResult<object>(null);

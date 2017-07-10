@@ -3,14 +3,19 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using sapHowmuch.Api.Web.Infrastructure;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens;
+using System.Linq;
+using System.Security.Claims;
 using System.Web;
+using Thinktecture.IdentityModel.Tokens;
 
 namespace sapHowmuch.Api.Web.Providers
 {
 	public class SapHowmuchJwtFormat : ISecureDataFormat<AuthenticationTicket>
 	{
 		private readonly string _issuer = string.Empty;
+		private List<Client> _allowedAudiences = new List<Client>();
 
 		public SapHowmuchJwtFormat(string issuer)
 		{
@@ -28,8 +33,8 @@ namespace sapHowmuch.Api.Web.Providers
 			var client = HttpContext.Current.GetOwinContext().Get<RefreshTokenManager>().FindClient(audienceId);
 			string symmetricKeyBase64 = client.Secret;
 
-			var keyByteArray = new InMemorySymmetricSecurityKey(TextEncodings.Base64Url.Decode(symmetricKeyBase64));
-			var signingCredentials = new SigningCredentials(keyByteArray, SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest);
+			var keyByteArray = TextEncodings.Base64Url.Decode(symmetricKeyBase64);
+			var signingCredentials = new HmacSigningCredentials(keyByteArray);
 
 			var issued = data.Properties.IssuedUtc;
 			var expires = data.Properties.ExpiresUtc;
@@ -43,47 +48,53 @@ namespace sapHowmuch.Api.Web.Providers
 
 		public AuthenticationTicket Unprotect(string protectedText)
 		{
-			throw new NotImplementedException();
+			Func<IEnumerable<Client>> allowedAudience = () => HttpContext.Current.GetOwinContext().Get<RefreshTokenManager>().GetAllowedClients();
 
-			#region 임시주석처리 2017-03-27
+			var handler = new JwtSecurityTokenHandler();
 
-			//// TODO: OAuthBearerAuthentication 을 사용할 경우에 동작? - 체크 필요
-			//List<SymmetricSecurityKey> keys = new List<SymmetricSecurityKey>();
+			TokenValidationParameters validationParams = new TokenValidationParameters
+			{
+				AudienceValidator = (audiences, securityToken, validationParam) =>
+				{
+					if (_allowedAudiences.Select(c => c.Id).Intersect(audiences).Count() > 0)
+					{
+						_allowedAudiences.Clear();
+						_allowedAudiences = allowedAudience().ToList();
+					}
 
-			//foreach (var client in Startup.AcceptedClients)
-			//{
-			//	var base64Key = client.Secret;
-			//	keys.Add(new SymmetricSecurityKey(TextEncodings.Base64Url.Decode(base64Key)));
-			//}
+					return allowedAudience().Select(c => c.Id).Intersect(audiences).Count() > 0;
+				},
+				ValidIssuer = _issuer,
+				ValidateAudience = true,
+				ValidateIssuer = true,
+				ValidateLifetime = true,
+				ValidateIssuerSigningKey = true,
+				IssuerSigningTokens = new SecurityTokensTokens(_issuer) { Audiences = allowedAudience },
+				ClockSkew = TimeSpan.Zero // default value of this property is 5, it adds 5 mins to expiration time.
+			};
 
-			//var handler = new JwtSecurityTokenHandler();
-			//TokenValidationParameters validationParams = new TokenValidationParameters
-			//{
-			//	// TODO: client 에 따른 암호 키가 문제가 된다면 이 부분을 수정해야한다.
-			//	ValidIssuer = _issuer,
-			//	ValidAudiences = Startup.AcceptedClients.Select(c => c.Id),
-			//	IssuerSigningKeys = keys,
-			//	ValidateLifetime = true,
-			//	ClockSkew = TimeSpan.Zero
-			//};
+			SecurityToken token = null;
 
-			//SecurityToken token = null;
+			try
+			{
+				var result = handler.ValidateToken(protectedText, validationParams, out token);
+				ClaimsIdentity claimsIdentity = new ClaimsIdentity(result.Claims, "JWT");
 
-			//try
-			//{
-			//	var result = handler.ValidateToken(protectedText, validationParams, out token);
-			//	ClaimsIdentity claimsIdentity = new ClaimsIdentity(result.Claims, "JWT");
+				//var props = new AuthenticationProperties
+				//{
+				//	AllowRefresh = true,
+				//	IsPersistent = true
+				//};
 
-			//	var ticket = new AuthenticationTicket(claimsIdentity, null); // TODO: properties 업데이트?
+				//var ticket = new AuthenticationTicket(claimsIdentity, props);
+				var ticket = new AuthenticationTicket(claimsIdentity, null);
 
-			//	return ticket;
-			//}
-			//catch
-			//{
-			//	throw;
-			//}
-
-			#endregion 임시주석처리 2017-03-27
+				return ticket;
+			}
+			catch
+			{
+				throw;
+			}
 		}
 	}
 }

@@ -1,14 +1,15 @@
 ﻿using sapHowmuch.Api.Web.Models;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace sapHowmuch.Api.Web.Controllers
 {
 	/// <summary>
 	/// Client 인증 관련 컨트롤러
 	/// </summary>
-	//[Authorize(Roles = "SuperAdmin")]
-	//[ApiExplorerSettings(IgnoreApi = true)] // hide specific controller in swagger controller list
+	[ApiExplorerSettings(IgnoreApi = true)] // hide specific controller in swagger controller list
+	[Authorize(Roles = "SuperAdmin")]
 	[RoutePrefix("api/audience")]
 	public class AudienceController : BaseApiController
 	{
@@ -16,7 +17,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		/// Get all clients.
 		/// </summary>
 		/// <returns></returns>
-		[Route("")]
+		 [Route("")]
 		public IHttpActionResult GetAudiences()
 		{
 			var lists = this.AppRefreshTokenManager.GetClients();
@@ -59,7 +60,6 @@ namespace sapHowmuch.Api.Web.Controllers
 		[Route("{id:guid}", Name = "DeleteClient")]
 		public async Task<IHttpActionResult> DeleteClient(string id)
 		{
-			// TODO: Only SuperAdmin or Admin can delete users.
 			var client = this.AppRefreshTokenManager.FindClient(id);
 			if (client != null)
 			{

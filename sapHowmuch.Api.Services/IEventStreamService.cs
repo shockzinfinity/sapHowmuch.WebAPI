@@ -26,6 +26,18 @@ namespace sapHowmuch.Api.Services
 		/// <returns>Returns the <see cref="EmployeeInfoCreateResponse" /> instance.</returns>
 		Task<EmployeeInfoCreateResponse> CreateEmployeeInfoAsync(EmployeeInfoCreateRequest request);
 
+		/// <summary>
+		/// Creates country
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
 		Task<CountryCreateResponse> CreateCountryAsync(CountryCreateRequest request);
+
+		/// <summary>
+		/// Create Journal Voucher
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
+		Task<JournalVoucherCreateResponse> CreateJournalVoucherAsync(JournalVoucherCreateRequest request);
 	}
 }

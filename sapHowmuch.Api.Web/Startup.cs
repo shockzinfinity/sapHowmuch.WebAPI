@@ -22,10 +22,6 @@ namespace sapHowmuch.Api.Web
 	public class Startup
 	{
 		/// <summary>
-		/// Gets or sets a value indicating whether the mapper definition has been initialised or not.
-		/// </summary>
-
-		/// <summary>
 		/// Gets OWIN property name of allowedOrigin
 		/// </summary>
 		public const string ClientAllowedOriginPropertyName = "as:clientAllowedOrigin";
@@ -39,11 +35,6 @@ namespace sapHowmuch.Api.Web
 		/// Gets OWIN property name of audience (client id)
 		/// </summary>
 		public const string ClientPropertyName = "as:client_id";
-
-		/// <summary>
-		/// Gets allowed origin against this web api
-		/// </summary>
-		public static IEnumerable<Client> AcceptedClients;
 
 		/// <summary>
 		/// Configures the OWIN pipeline.
@@ -62,12 +53,8 @@ namespace sapHowmuch.Api.Web
 			appBuilder.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 			appBuilder.CreatePerOwinContext<RefreshTokenManager>(RefreshTokenManager.Create);
 
-			using (var db = new ApplicationDbContext())
-			{
-				AcceptedClients = db.Clients.ToList();
-			}
-
 			ConfigureOAuth(appBuilder);
+			ConfigureOAuthTokenConsumption(appBuilder);
 
 			var container = DependencyConfig.Configure();
 
@@ -109,18 +96,29 @@ namespace sapHowmuch.Api.Web
 			// 전반적인 시나리오는
 			// 토큰의 expire 타임은 짧게 가져가고
 			// refresh token 을 제공하여, 토큰의 재사용을 유도하는 정책으로 간다.
-			var audience = ConfigurationManager.AppSettings["resourceApiClientId"];
-			var secret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["resourceApiClientSecret"]);
+			//var audience = ConfigurationManager.AppSettings["resourceApiClientId"];
+			//var secret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["resourceApiClientSecret"]);
 
-			app.UseJwtBearerAuthentication(
-				new JwtBearerAuthenticationOptions
+			//app.UseJwtBearerAuthentication(
+			//	new JwtBearerAuthenticationOptions
+			//	{
+			//		AuthenticationMode = Microsoft.Owin.Security.AuthenticationMode.Active,
+			//		AllowedAudiences = new[] { audience },
+			//		IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
+			//		{
+			//			new SymmetricKeyIssuerSecurityTokenProvider(issuer, secret)
+			//		}
+			//	});
+		}
+
+		private void ConfigureOAuthTokenConsumption(IAppBuilder app)
+		{
+			var issuer = ConfigurationManager.AppSettings["tokenIssuer"];
+
+			app.UseOAuthBearerAuthentication(
+				new OAuthBearerAuthenticationOptions
 				{
-					AuthenticationMode = Microsoft.Owin.Security.AuthenticationMode.Active,
-					AllowedAudiences = new[] { audience },
-					IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
-					{
-						new SymmetricKeyIssuerSecurityTokenProvider(issuer, secret)
-					}
+					AccessTokenFormat = new SapHowmuchJwtFormat(issuer)
 				});
 		}
 	}
