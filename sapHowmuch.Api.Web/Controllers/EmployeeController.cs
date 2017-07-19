@@ -45,7 +45,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Gets employee list.
+		/// Gets employee list; 사원정보 리스트 조회
 		/// </summary>
 		/// <returns></returns>
 		[Route("")]
@@ -62,7 +62,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Gets employee info of given id
+		/// Gets employee info of given id; id를 통한 사원정보 조회
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
@@ -80,7 +80,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Gets employee info of given name.
+		/// Gets employee info of given name; 사원이름을 통한 사원정보 조회
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
@@ -98,9 +98,9 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Create employee info
+		/// Create employee info; 사원정보 생성
 		/// </summary>
-		/// <param name="request">The <see cref="EmployeeInfoCreateRequest" /> instance.</param>
+		/// <param name="request">생성할 사원 정보</param>
 		/// <returns>Returns the <see cref="EmployeeInfoCreateResponse" /> instance. </returns>
 		[HttpPost]
 		[Route("add")]

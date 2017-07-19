@@ -1,16 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
-using Microsoft.Owin.Security.DataHandler.Encoder;
-using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using sapHowmuch.Api.Web.Infrastructure;
 using sapHowmuch.Api.Web.Providers;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 
 [assembly: OwinStartup(typeof(sapHowmuch.Api.Web.Startup))]
 

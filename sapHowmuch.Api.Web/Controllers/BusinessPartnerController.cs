@@ -29,7 +29,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Gets all business partners.
+		/// Gets all business partners; 거래처 리스트 조회
 		/// </summary>
 		/// <returns></returns>
 		[Route("")]
@@ -39,7 +39,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Gets a specific business partner.
+		/// Gets a specific business partner; 특정 거래처 조회
 		/// </summary>
 		/// <param name="code"></param>
 		/// <returns></returns>

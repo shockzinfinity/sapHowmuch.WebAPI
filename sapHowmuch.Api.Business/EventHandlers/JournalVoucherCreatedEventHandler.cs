@@ -68,8 +68,12 @@ namespace sapHowmuch.Api.Business.EventHandlers
 
 							//voucher.JournalEntries.Memo = entry.Memo;
 							// NOTE: 임시 테스트를 위해 적요에 해당 steamId를 삽입 후 추후 조회에서 처리
-							// TODO: 추후 유저필드 추가 후에 해당 필드로 변경필요
+							// TODO: 추후 유저필드 추가 후에 해당 필드로 변경필요 (추가해야할 UDF: StreamId, ApiUserId, ClientId)
+							// ApiUser 와 ClientId를 받을 필요가 있음. request 에서 부터 전달되어야 함.
 							voucher.JournalEntries.Memo = @event.EventStream.ToString();
+							//voucher.JournalEntries.UserFields.Fields.Item("U_StreamId").Value = @event.EventStream.ToString();
+							//voucher.JournalEntries.UserFields.Fields.Item("U_ApiUserName").Value = "";
+							//voucher.JournalEntries.UserFields.Fields.Item("U_ClientId").Value = "";
 
 							#endregion
 

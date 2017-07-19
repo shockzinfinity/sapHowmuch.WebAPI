@@ -31,7 +31,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Get all Items
+		/// Get all Items; 품목 리스트 조회
 		/// </summary>
 		/// <returns></returns>
 		[Route("")]
@@ -41,7 +41,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Get a specific item
+		/// Get a specific item; 특정 품목 조회
 		/// </summary>
 		/// <param name="itemCode"></param>
 		/// <returns></returns>

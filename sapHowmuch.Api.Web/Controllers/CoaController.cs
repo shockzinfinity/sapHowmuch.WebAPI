@@ -29,7 +29,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Gets all chart of account
+		/// Gets all chart of account; 계정과목코드 리스트 조회
 		/// </summary>
 		/// <returns></returns>
 		[Route("")]
@@ -39,7 +39,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Gets a specific account.
+		/// Gets a specific account; 특정 계정과목 조회
 		/// </summary>
 		/// <param name="code"></param>
 		/// <returns></returns>
