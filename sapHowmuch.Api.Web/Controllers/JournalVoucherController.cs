@@ -13,7 +13,7 @@ using System.Web.Http;
 namespace sapHowmuch.Api.Web.Controllers
 {
 	/// <summary>
-	/// Journal Voucher 컨트롤러
+	/// Journal Voucher(분개장) 컨트롤러
 	/// </summary>
 	[Authorize]
 	[LoggingFilter]
@@ -46,7 +46,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Get all voucher lists
+		/// Get all voucher lists; 모든 분개장 조회
 		/// </summary>
 		/// <returns></returns>
 		[Route("")]
@@ -56,9 +56,9 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Get a specific voucher list
+		/// Get a specific voucher list; 특정 분개장 조회
 		/// </summary>
-		/// <param name="batchNum"></param>
+		/// <param name="batchNum">분개장 배치넘버 (key)</param>
 		/// <returns></returns>
 		[Route("{batchNum}")]
 		public async Task<IHttpActionResult> Get(int batchNum)
@@ -74,9 +74,9 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Create Journal Voucher
+		/// Create Journal Voucher; 분개장 생성 
 		/// </summary>
-		/// <param name="request">The <see cref="JournalVoucherCreateRequest" /> instance</param>
+		/// <param name="request">분개장 생성 요청 타입</param>
 		/// <returns>Returns the <see cref="JournalVoucherCreateResponse" /> instance</returns>
 		[HttpPost]
 		[Route("add")]

@@ -31,7 +31,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Get all vat group code
+		/// Get all vat group code; 세금 그룹 코드 리스트
 		/// </summary>
 		/// <returns></returns>
 		[Route("")]
@@ -41,7 +41,7 @@ namespace sapHowmuch.Api.Web.Controllers
 		}
 
 		/// <summary>
-		/// Get a specific vat group
+		/// Get a specific vat group; 특정 세금 그룹 코드
 		/// </summary>
 		/// <param name="code"></param>
 		/// <returns></returns>

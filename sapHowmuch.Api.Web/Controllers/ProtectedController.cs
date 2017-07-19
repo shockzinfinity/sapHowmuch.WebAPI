@@ -12,7 +12,7 @@ namespace sapHowmuch.Api.Web.Controllers
 	public class ProtectedController : BaseApiController
 	{
 		/// <summary>
-		/// GET method with Authentication and Authorization
+		/// GET method with Authentication and Authorization; 인증 및 권한부여를 위한 테스트 엔드포인트
 		/// </summary>
 		/// <returns></returns>
 		[Route("")]
