@@ -1,0 +1,25 @@
+	<appSettings>
+		<!-- for sap & api-->
+		<!-- tokenIssuer is for jwt token -->
+		<add key="tokenIssuer" value="http://192.168.1.229:9091" />
+		<!-- for client authentication -->
+		<add key="resourceApiClientId" value="fxxxxbxbxxaxxxxxxedxxcxdxeexxxxb" />
+		<!-- for client authentication -->
+		<add key="resourceApiClientSecret" value="grUrtKXYxwlrbuzUtxRHRbexMULOKxgR/oJOPtcPxYI=" />
+		<!-- fill your license server -->
+		<add key="sapLicenseServer" value="192.168.1.229" />
+		<!-- fill your sap server -->
+		<add key="sapServer" value="192.168.1.229" />
+		<!-- for sap db type, i don't know current supported db version. it is followed by sap b1 sdk, and you have to modify enum values. -->
+		<add key="sapDbType" value="dst_MSSQL2014" />
+		<!-- for company db -->
+		<add key="sapCompanyDb" value="CLIENT_TEST_01" />
+		<!-- for db user name -->
+		<add key="sapDbUsername" value="sa" />
+		<!-- for db password -->
+		<add key="sapDbPassword" value="sap2021#!@@!" />
+		<!-- for sap company user name -->
+		<add key="sapCompanyUser" value="dev5" />
+		<!-- for sap company password -->
+		<add key="sapCompanyPassword" value="devlxxxx" />
+	</appSettings>
