@@ -1,0 +1,10 @@
+	<connectionStrings>
+    <!-- for only web api context -->
+		<add name="WebApiDbContext" connectionString="data source=192.168.1.229;initial catalog=sapHowmuchWebApi;persist security info=True;user id=sa;password=sap2021#!@@!;MultipleActiveResultSets=True;App=EntityFramework;" providerName="System.Data.SqlClient" />
+    <!-- just for logging -->
+		<add name="elmah-sqlserver" connectionString="Data Source=192.168.1.229;User ID=sa;Password=sap2017#!);Initial Catalog=sapHowmuchWebApi;" providerName="System.Data.SqlClient" />
+    <!--for event logging -->
+		<add name="ApplicationDbContext" connectionString="data source=192.168.1.229;initial catalog=sapHowmuchWebApi;persist security info=True;user id=sa;password=sap2021#!@@!;MultipleActiveResultSets=True;App=EntityFramework;" providerName="System.Data.SqlClient" />
+    <!-- sap b1 db -->
+		<add name="SapDbContext" connectionString="data source=192.168.1.229;initial catalog=Object_TEST_01;user id=sa;password=sap2021#!@@!;" providerName="System.Data.SqlClient" />
+	</connectionStrings>
